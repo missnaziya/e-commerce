@@ -1,0 +1,12 @@
+<div class="" id="chng">
+ <select multiple 	class="input-custom input-custom--sm input-full chosen-select" name="sub_cat" id="sub_cat" >
+											<% category.forEach((category, index) => { %>
+												<option value="<%=category.category_id%>"><%=category.cat_name%></option>
+												<% })%>
+										</select>
+                                        </div>
+                                     <script>
+$(".chosen-select").chosen({
+  no_results_text: "Oops, nothing found!"
+})
+</script>

@@ -1,0 +1,271 @@
+<div class="cartpopup">
+            <%
+            if(cart.length <= 0)
+            {
+                %>
+                <img src="/assets/images/header/cart.png" id="piyucartshows" alt="shop-cart">
+                <div class="count-item" id="piyucartcontentItemCount"><%-cart.length%></div>
+                <%
+            }
+            else
+            {
+               %>
+                <a href="/boozly/checkout" style="color: #FFF;padding: 0;margin: 0;display: block;"><img src="/assets/images/header/cart.png" id="piyucartshows" alt="shop-cart"></a>
+                <a href="/boozly/checkout" style="color: #FFF;padding: 0;margin: 0;display: block;"><div class="count-item" id="piyucartcontentItemCount"><%-cart.length%></div></a>
+                <% 
+            }
+            %>
+            
+            <%if(cart.length <= 0){%>
+            <div class="cart-content" id="piyucartcontent" style="visibility: hidden; opacity: 0;">
+            <%}%>
+            <%if(cart.length > 0){%>
+            <div class="cart-content" id="piyucartcontent" style="visibility: hidden; opacity: 0;">
+            <%}%>
+            
+                <div class="cart-title" id="piyucartcontenttitle">
+                    <div class="add-item">
+                        <%-cart.length%> Items Added</div>
+                    <div class="list-close"><a id="piyucloseS" href="javascript:void(0);">Close</a></div>
+                </div>
+                <div class="cart-scr scrollbar">
+                    <div class="cart-con-item">
+                        <% for (let i = 0; i < cart.length; i++) {%>
+                            <div class="cart-item">
+
+                                <div class="cart-inner">
+                                    <div class="cart-top">
+                                        <div class="thumb">
+                                            <a href="javascript:void(0);"><img src="<%-cart[i].img_path%>" alt=""></a>
+                                        </div>
+                                        <div class="content">
+                                            <a href="javascript:void(0);">
+                                                <%=cart[i].title%><br /><%=cart[i].size%><%=cart[i].unit%>&nbsp;<%=cart[i].package%>
+                                            </a>
+                                        </div>
+                                        <div class="remove-btn">
+                                            <a href="javascript:void(0);" class="cart-remove" cart_index="<%-i%>"><i class="icofont-close"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cart-bottom">
+                                        <div class="cart-plus-minus">
+                                            <div class="dec qtybutton qtycart">-</div>
+                                            <div class="dec qtybutton qtycart">-</div>
+                                            <div class="dec qtybutton qtycart">-</div>
+
+                                            <input class="cart-plus-minus-box" type="text" name="qtycart" cart_index="<%-i%>" variation_id="<%-cart[i].variation_id%>" id="qtycart<%-cart[i].variation_id%>" value=" <%=cart[i].qty%>">
+                                            <div class="inc qtybutton qtycart">+</div>
+                                            <div class="inc qtybutton qtycart">+</div>
+                                            <div class="inc qtybutton qtycart">+</div>
+                                        </div>
+                                        <div class="total-price" base_price="<%-cart[i].value%>" id="pricecart<%-cart[i].variation_id%>">£<%=Number(cart[i].total_price).toFixed(2)%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <%}%>
+
+                    </div>
+                </div>
+                <div class="cart-scr-bottom">
+                    <a href="/boozly/checkout" class="food-btn"><span>Checkout</span></a>
+                </div>
+            </div>
+</div>
+<script type="text/javascript">
+    var d = [];
+    <%
+    if(cart.length>0)
+    {
+        for (let dd = 0; dd < cart.length; dd++)
+        {
+            %>
+            d.push({
+                'product_id': '<%-cart[dd].product_id%>',
+                'title': '<%-cart[dd].title%>',
+                'qty': '<%-cart[dd].qty%>',
+                'value': '<%-cart[dd].value%>',
+                'size': '<%-cart[dd].size%>',
+                'unit':'<%-cart[dd].unit%>',
+                'package':'<%-cart[dd].package%>',
+                'variation_id': '<%-cart[dd].variation_id%>',
+                'img_path': '<%-cart[dd].img_path%>',
+                'total_price': '<%-cart[dd].total_price%>'
+            });
+            <%
+        }
+    }
+    %>
+    
+    $(".qtycart").on("click", function()
+    {
+        //--------------
+        var $button = $(this);
+        var oldValue = $button.parent().find("input").val();
+        if ($button.text() === "+")
+        {
+            var newVal = parseFloat(oldValue) + 1;
+        }
+        else
+        {
+            if (oldValue > 1)
+            {
+                var newVal = parseFloat(oldValue) - 1;
+            }
+            else
+            {
+                newVal = 1;
+            }
+        }
+        $button.parent().find("input").val(newVal);
+        calculate($button.parent().find("input").attr('variation_id'))
+    });
+
+    function calculate(variation_id)
+    {
+        var qty = $("#qtycart" + variation_id).val();
+        var price = $("#pricecart" + variation_id).attr('base_price');
+        var cart_index = $("#qtycart" + variation_id).attr('cart_index');
+        //$("#pricecart" + variation_id).html('£' + price * qty);
+        $.ajax({
+            type: "POST",
+            url: '/boozly/dynamic_cart',
+            data: {
+                'qty_update': {
+                    cart_index: cart_index,
+                    qty: qty,
+                }
+            },
+            success: function(d) {
+                $('#cartdynamic').html(d);
+                if($("#piyucartcontentItemCount").html() != '0')
+                {
+                    $("#piyucartcontent").css("visibility", "visible");
+                    $("#piyucartcontent").css("opacity", "1");
+                }
+                else
+                {
+                    $("#piyucartcontent").css("visibility", "hidden");
+                    $("#piyucartcontent").css("opacity", "0");	
+                }
+                //----------
+                var currentURL = window.location.href.split('/');
+                if(currentURL.includes("checkout") == true)
+                {
+                    location.reload(true);
+                }
+            }
+        });
+    }
+    
+    
+    $('.cart-remove').click(function()
+    {
+        var id = $(this).attr('cart_index');
+        $.ajax({
+            type: "POST",
+            url: '/boozly/dynamic_cart',
+            data: {
+                remove_cart: id
+            },
+            success: function(d) {
+                $('#cartdynamic').html(d);
+                if($("#piyucartcontentItemCount").html() != '0')
+                {
+                    $("#piyucartcontent").css("visibility", "visible");
+                    $("#piyucartcontent").css("opacity", "1");
+                }
+                else
+                {
+                    $("#piyucartcontent").css("visibility", "hidden");
+                    $("#piyucartcontent").css("opacity", "0");	
+                }
+                var currentURL = window.location.href.split('/');
+                if(currentURL.includes("checkout") == true)
+                {
+                    location.reload(true);
+                }
+            }
+        });
+
+    });
+    
+    <%if(false && cart.length > 0){%>
+        
+    	$("#piyucartshows").on("click", function() { 
+    		if($("#piyucartcontentItemCount").html() != '0')
+    		{
+                    $("#piyucartcontent").css("visibility", "visible");
+                    $("#piyucartcontent").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontent").css("visibility", "hidden");
+                    $("#piyucartcontent").css("opacity", "0");	
+    		}
+    	});
+        
+        $("#piyucartshowsmobile").on("click", function() { 
+    		if($("#piyucartcontentItemCount").html() != '0')
+    		{
+                    $("#piyucartcontent").css("visibility", "visible");
+                    $("#piyucartcontent").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontent").css("visibility", "hidden");
+                    $("#piyucartcontent").css("opacity", "0");	
+    		}
+    	});
+    	
+    	$("#piyucartshows").on("mouseover", function() { 
+    		if($("#piyucartcontentItemCount").html() != '0')
+    		{
+                    $("#piyucartcontent").css("visibility", "visible");
+                    $("#piyucartcontent").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontent").css("visibility", "hidden");
+                    $("#piyucartcontent").css("opacity", "0");	
+    		}
+    	});
+        
+        $("#piyucartshowsmobile").on("mouseover", function() { 
+    		if($("#piyucartcontentItemCount").html() != '0')
+    		{
+                    $("#piyucartcontent").css("visibility", "visible");
+                    $("#piyucartcontent").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontent").css("visibility", "hidden");
+                    $("#piyucartcontent").css("opacity", "0");	
+    		}
+    	});
+    	
+    	$("#piyucloseS").on("click", function() {
+            $("#piyucartcontent").css("visibility", "hidden");
+            $("#piyucartcontent").css("opacity", "0");
+    	});
+        
+        $(document.body).not('#cartOptionLi').bind('click touch', function(e)
+        {
+            if ( e.target.className.indexOf("cartpopup") < 0 )
+            {
+                document.getElementById('piyucartcontent').style.visibility = "hidden";
+                document.getElementById('piyucartcontent').style.opacity = "0";
+            }
+        });
+        $("#cartOptionLi").bind('click touch', function(e) {
+            e.stopPropagation();
+        });
+    	
+    <%}%>
+    
+    
+     
+     
+    
+</script>

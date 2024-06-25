@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- favicon -->
+    <link
+      rel="shortcut icon"
+      href="/assets/images/favicon.png"
+      type="image/png"
+    />
+    <!-- animate scss -->
+    <link rel="stylesheet" href="/assets/css/animate.css" />
+    <!-- bootstarp css -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <!-- icofont -->
+    <link rel="stylesheet" href="/assets/css/icofont.min.css" />
+    <!-- lightcase css -->
+    <link rel="stylesheet" href="/assets/css/lightcase.css" />
+    <!-- swiper css -->
+    <link rel="stylesheet" href="/assets/css/swiper.min.css" />
+    <!-- cusyom scss -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Boozly</title>
+    <style type="text/css">
+      .customer-info {
+        background: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- preloader -->
+    <div class="preloader">
+      <div class="load loade">
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+      </div>
+    </div>
+    <!-- preloader -->
+
+    <% include ../partials/header %>
+
+    <section class="delivery-info padding-tb">
+      <div class="container">
+        <div class="section-wrapper">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-header text-left">
+                <h3>Thank you for your order</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="single-checkout left arrival-time">
+                <div class="user-account">
+                  <% for (const [key, value] of Object.entries(orders)) {
+                  if(orders[key][0].order_type == "Delivery") { var newclass =
+                  ""; var acceptclass = ""; var readyclass = ""; var
+                  deliveryclass = ""; var completedclass = "";
+                  switch(orders[key][0].order_status) { case "new": newclass =
+                  "active"; break; case "accept": newclass = 'past-od-status';
+                  acceptclass = 'active'; break; case "ready": case "arrive":
+                  newclass = 'past-od-status'; acceptclass = 'past-od-status';
+                  readyclass = 'active'; break; case "out_delivery": newclass =
+                  'past-od-status'; acceptclass = 'past-od-status'; readyclass =
+                  'past-od-status'; deliveryclass = 'active'; break; case
+                  "completed": newclass = 'past-od-status'; acceptclass =
+                  'past-od-status'; readyclass = 'past-od-status'; deliveryclass
+                  = 'past-od-status'; completedclass = 'active'; break; } var
+                  odDate = new Date(orders[key][0].order_date); var odDateR =
+                  new Date(orders[key][0].order_date);
+                  odDateR.setMinutes(odDateR.getMinutes() + 25); %>
+                  <div class="estimated-arrival">
+                    <h6>Estimated arrival</h6>
+                    <h5>
+                      <%-odDate.getHours()%>:<%-odDate.getMinutes()%> -
+                      <%-odDateR.getHours()%>:<%-odDateR.getMinutes()%>
+                    </h5>
+                  </div>
+                  <ul class="timeline">
+                    <li class="<%-newclass%>">Order requested</li>
+                    <li class="<%-acceptclass%>">Order accepted</li>
+                    <li class="<%-readyclass%>">Waiting for a driver</li>
+                    <li class="<%-deliveryclass%>">Out for delivery</li>
+                    <li class="<%-completedclass%>">Complete</li>
+                  </ul>
+                  <% } if(orders[key][0].order_type == "Pickup") { var newclass
+                  = ''; var acceptclass = ''; var readyclass = ''; var
+                  completedclass = ''; switch(orders[key][0].order_status) {
+                  case "new": newclass = 'active'; break; case "accept":
+                  newclass = 'past-od-status'; acceptclass = 'active'; break;
+                  case "ready": case "arrive": newclass = 'past-od-status';
+                  acceptclass = 'past-od-status'; readyclass = 'active'; break;
+                  case "completed": newclass = 'past-od-status'; acceptclass =
+                  'past-od-status'; readyclass = 'past-od-status';
+                  completedclass = 'active'; break; } var odDate = new
+                  Date(orders[key][0].order_date); var odDateR = new
+                  Date(orders[key][0].order_date);
+                  odDateR.setMinutes(odDateR.getMinutes() + 25); %>
+                  <div class="estimated-arrival">
+                    <h6>Estimated pickup</h6>
+                    <h5>
+                      <%-odDate.getHours()%>:<%-odDate.getMinutes()%> -
+                      <%-odDateR.getHours()%>:<%-odDateR.getMinutes()%>
+                    </h5>
+                  </div>
+                  <ul class="timeline">
+                    <li class="<%-newclass%>">Order requested</li>
+                    <li class="<%-acceptclass%>">Order accepted</li>
+                    <li class="<%-readyclass%>">Ready for collection</li>
+                    <li class="<%-completedclass%>">Complete</li>
+                  </ul>
+                  <% } } %>
+                </div>
+                <!-- /user account -->
+              </div>
+              <% for (const [key, value] of Object.entries(orders)) {
+              if(orders[key][0].order_type == "Delivery") {%>
+
+              <div class="single-checkout left single-delivery">
+                <div class="user-account">
+                  <div class="store-list">
+                    <h6>Delivery Address</h6>
+                    <h5>
+                      <% for (let i = 0; i < address.length; i++) {
+                      if(address[i].address && orders[orderId][0].address_id ==
+                      address[i].address_id) { %>
+                      <%-(address[i].address).replace(/,/g, ", ")%> <% } }%>
+                    </h5>
+                  </div>
+                </div>
+                <!-- /user account -->
+              </div>
+              <% } if(orders[key][0].order_type == "Pickup") { %>
+              <div class="single-checkout left single-delivery">
+                <div class="user-account">
+                  <div class="store-list">
+                    <h6>Pickup Address</h6>
+                    <h5><%-orders[key][0].name%></h5>
+                    <span
+                      ><% if(orders[key][0].city != "")
+                      {%><%-orders[key][0].city%><% } %><%
+                      if(orders[key][0].country != "")
+                      {%><%if(orders[key][0].city != "") {%>,<% } %>
+                      <%-orders[key][0].country%><% } %><%
+                      if(orders[key][0].pin_code != "")
+                      {%><%if(orders[key][0].country != "") {%>,<% } %>
+                      <%-orders[key][0].pin_code%><% } %></span
+                    >
+                  </div>
+                </div>
+                <!-- /user account -->
+              </div>
+              <% } } %>
+
+              <div class="single-checkout left single-delivery">
+                <div class="user-account">
+                  <div class="banner-content past-orders">
+                    <% for (const [key, value] of Object.entries(orders)) { %>
+                    <div class="banner-content-area">
+                      <ul class="order-address">
+                        <h6>Your order</h6>
+                        <h5><%-orders[key][0].name%></h5>
+                        <span
+                          ><% if(orders[key][0].city != "")
+                          {%><%-orders[key][0].city%><% } %><%
+                          if(orders[key][0].country != "")
+                          {%><%if(orders[key][0].city != "") {%>,<% } %>
+                          <%-orders[key][0].country%><% } %><%
+                          if(orders[key][0].pin_code != "")
+                          {%><%if(orders[key][0].country != "") {%>,<% } %>
+                          <%-orders[key][0].pin_code%><% } %></span
+                        >
+                      </ul>
+                      <ul class="order-details">
+                        <% for (let i = 0; i < orders[key].length; i++) { %>
+                        <li>
+                          <span>
+                            <%-orders[key][i].title%> <%-orders[key][i].size%>
+                            <%-orders[key][i].unit%> <%-orders[key][i].package%>
+                          </span>
+                        </li>
+                        <% }%>
+                      </ul>
+                      <div class="meta-post mb-0">
+                        <ul>
+                          <li
+                            style="
+                              font-weight: 600;
+                              color: #362725;
+                              font-size: 16px;
+                            "
+                          >
+                            <i style="margin-right: 0" class="icofont-pound"></i
+                            ><span
+                              ><%-Number(orders[key][0].total_cost).toFixed(2)%></span
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <% } %>
+                  </div>
+                </div>
+                <!-- /user account -->
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="map-info">
+                <div id="map" style="width: 100%; height: 600px"></div>
+                <!-- <iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d8677.248146689873!2d90.4018697690502!3d23.8777924491898!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x877363690775d948!2sYouth+Training+Academy!5e0!3m2!1sen!2sbd!4v1518686326914" allowfullscreen="" width="100%" height="600px" frameborder="0"></iframe>
+
+                                <div class="container">
+                                    <div class="section-wrapper">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section Start Here -->
+    <% if (ISMOBILE === "1") { %>
+      <!-- MOBILE TAB MENU Here -->
+          <% include ../partials/tabBar %>
+      <% } else { %>
+          <% include ../partials/footer %>
+      <% } %>
+    <!-- Footer Section Ending Here -->
+
+    <!-- scrollToTop start here -->
+    <a href="javascript:void(0);" class="scrollToTop"
+      ><i class="icofont-swoosh-up"></i
+    ></a>
+    <!-- scrollToTop ending here -->
+
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/waypoints.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/isotope.pkgd.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/swiper.min.js"></script>
+    <script src="/assets/js/lightcase.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/progressbar.js"></script>
+    <script src="/assets/js/functions.js"></script>
+    <script src="/assets/js/cookie.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false&key=AIzaSyAXUfctQqxktTfMmdu8NK50c09hkIyILMo"
+      type="text/javascript"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        if (checkCookie("addPromoCode")) {
+          setCookie("addPromoCode", "", 1);
+        }
+        if (checkCookie("addTip")) {
+          setCookie("addTip", "", 1);
+        }
+      });
+      if (false) {
+        var bar = new ProgressBar.Line(progressbar, {
+          strokeWidth: 4,
+          easing: "easeInOut",
+          duration: 1400,
+          color: "#fb524f",
+          trailColor: "#eee",
+          trailWidth: 1,
+          svgStyle: { width: "100%", height: "100%" },
+          text: {
+            style: {
+              // Text color.
+              // Default: same as stroke color (options.color)
+              color: "#999",
+              position: "absolute",
+              right: "0",
+              top: "30px",
+              padding: 0,
+              margin: 0,
+              transform: null,
+            },
+            autoStyleContainer: false,
+          },
+          from: { color: "#FFEA82" },
+          to: { color: "#ED6A5A" },
+          step: (state, bar) => {
+            bar.setText(Math.round(bar.value() * 100) + " %");
+          },
+        });
+        bar.animate(1.0); // Number from 0.0 to 1.0
+      }
+    </script>
+    <script type="text/javascript">
+      if(true)
+      {
+          var locations = [];
+          var storeLat = 25.1988; var storeLng = 55.2796;
+          <% for (const [key, value] of Object.entries(orders))
+          {
+              if(orders[key][0].lat != '' && orders[key][0].lng != '' && orders[key][0].lat != null && orders[key][0].lng != null)
+              {
+                  storeLat = orders[key][0].lat;
+                  storeLng = orders[key][0].lng;
+              }
+              %>
+              locations = [["<%-orders[key][0].name%>", <%-storeLat%>, <%-storeLng%>, '<h5><%-orders[key][0].name%></h5><span><% if(orders[key][0].city != "") {%><%-orders[key][0].city%><% } %><% if(orders[key][0].country != "") {%><%if(orders[key][0].city != "") {%>,<% } %> <%-orders[key][0].country%><% } %><% if(orders[key][0].pin_code != "") {%><%if(orders[key][0].country != "") {%>,<% } %> <%-orders[key][0].pin_code%><% } %></span>']];
+              <%
+          }
+          %>
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: new google.maps.LatLng(storeLat, storeLng),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+
+          var infowindow = new google.maps.InfoWindow();
+
+          var marker, i;
+
+          for (i = 0; i < locations.length; i++) {
+            marker = new google.maps.Marker({
+              position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+              map: map
+            });
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                infowindow.setContent(locations[i][3]);
+                infowindow.open(map, marker);
+              }
+            })(marker, i));
+          }
+      }
+    </script>
+  </body>
+</html>

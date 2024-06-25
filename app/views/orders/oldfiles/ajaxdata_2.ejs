@@ -1,0 +1,440 @@
+<% if(products.length==0) {%>
+<div class="col-md-12">
+  <h6 style="text-align: center">No Products Found</h6>
+</div>
+<div class="col-md-12">
+  <h6 style="text-align: center">
+    Boozly currently operates in the following areas.<br />
+    Please select a store…
+  </h6>
+</div>
+<br />
+<div class="col-md-12">
+  <ol style="text-align: center">
+    <% for (let i = 0; i < stores.length; i++) {%>
+    <li class="hover" style="font-weight: bold; font-size: larger">
+      <a
+        id="chngstore"
+        store_id="<%-stores[i].store_id%>"
+        onclick="return chngstore('<%-stores[i].store_id%>','<%-stores[i].pin_code%>')"
+      >
+        <%-stores[i].name%>&nbsp;<%-stores[i].pin_code%>
+      </a>
+    </li>
+    <% }%>
+  </ol>
+</div>
+<div class="col-md-12">
+  <p style="text-align: center; color: black; font-weight: bold">
+    We’re always working on expanding our coverage,<br />
+    so if we’re not servicing your local area right now,<br />
+    please accept our apologies & please check back soon
+  </p>
+</div>
+<style type="text/css">
+  .pagination {
+    display: none;
+  }
+</style>
+<% }%>
+<script type="text/javascript">
+  var total_val = 0;
+  var total_qty = 0;
+</script>
+<% for (let i = 0; i < products.length; i++) {%>
+<div class="col-xl-4 col-md-6 col-sm-6 col-12">
+  <div class="p-food-item">
+    <div class="p-food-inner">
+      <div class="p-food-thumb">
+        <a
+          href="#exampleModalCenter<%-products[i].product_id%>"
+          product_id="<%-products[i].product_id%>"
+          class="moddata"
+          data-toggle="modal"
+          data-value="<%-products[i].product_id%>"
+        >
+          <img src="<%-products[i].img_path%>" alt="p-food" />
+        </a>
+      </div>
+      <div class="p-food-content food-content-search">
+        <h6>
+          <a
+            href="#exampleModalCenter<%-products[i].product_id%>"
+            product_id="<%-products[i].product_id%>"
+            class="moddata"
+            data-toggle="modal"
+          >
+            <%-products[i].title%>
+          </a>
+        </h6>
+        <p><%-products[i].cat_name%>, <%-products[i].subcat_name%></p>
+        <span>From £ <%-(products[i].value).toFixed(2)%></span>
+      </div>
+    </div>
+  </div>
+</div>
+<% if(products_count <= Number(offset)+limit) {%>
+<style type="text/css">
+  .pagination {
+    display: none;
+  }
+</style>
+<% }%>
+
+<div
+  class="modal fade booze-modal"
+  id="exampleModalCenter<%-products[i].product_id%>"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle<%-products[i].product_id%>"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header widget-header">
+        <h4
+          class="modal-title"
+          id="exampleModalLongTitle<%-products[i].product_id%>"
+        >
+          <%-products[i].title%>
+        </h4>
+        <div class="modal-remove-btn">
+          <a data-dismiss="modal" aria-label="Close"
+            ><i aria-hidden="true" class="closemode icofont-close"></i
+          ></a>
+        </div>
+      </div>
+      <p class="modal-cat">
+        <%-products[i].cat_name%>, <%-products[i].subcat_name%>
+      </p>
+      <div class="modal-body">
+        <div class="summary">
+          <p><%-products[i].title%></p>
+        </div>
+        <div class="summary-content">
+          <p><%-products[i].description%></p>
+        </div>
+        <a href="javascript:void(0);" class="read-more">Read more</a>
+        <div class="container-fluid">
+          <div class="row">
+            <% for (let x = 0; x < vari.length; x++) {
+            if(vari[x].product_id==products[i].product_id) { %>
+            <div class="col-xl-4 col-md-4 col-sm-6 col-12">
+              <div class="p-food-item">
+                <div class="p-food-inner">
+                  <div class="p-food-thumb">
+                    <img
+                      id="zoom_01"
+                      src="<%-vari[x].img_path%>"
+                      data-zoom-image="<%-vari[x].img_path%>"
+                    />
+                  </div>
+                  <div class="p-food-content">
+                    <h6>
+                      <a href="javascript:void(0);"
+                        ><%-vari[x].size%> <%-vari[x].unit%></a
+                      >
+                    </h6>
+                    <p><%-vari[x].ptype%></p>
+                    <span class="product-price"
+                      >£ <%-Number(vari[x].value).toFixed(2)%></span
+                    >
+                    <div class="cart-bottom unit-counter2">
+                      <div class="cart-plus-minus">
+                        <div class="dec qtybutton">-</div>
+                        <div class="dec qtybutton">-</div>
+                        <div class="dec qtybutton">-</div>
+                        <input
+                          class="cart-plus-minus-box unit-counter-box popup-cart-qty"
+                          id="qty<%-vari[x].variation_id%>"
+                          products="<%-products[i].product_id%>"
+                          img_path="<%-vari[x].img_path%>"
+                          title=" <%-products[i].title%>"
+                          variation_id="<%-vari[x].variation_id%>"
+                          size="<%-vari[x].size%>"
+                          unit="<%-vari[x].unit%>"
+                          type="text"
+                          name="qtybutton"
+                          value="0"
+                          readonly
+                        />
+                        <div class="inc qtybutton">+</div>
+                        <div class="inc qtybutton">+</div>
+                        <div class="inc qtybutton">+</div>
+                      </div>
+                      <span
+                        class="total-price product-price qty<%-products[i].product_id%> popup-cart-price"
+                        price_val="0"
+                        base_price="<%-(vari[x].value).toFixed(2)%>"
+                        id="price<%-vari[x].variation_id%>"
+                        >£ 0.00</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } }%>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span
+          class="popup-cart-btntotalqtyprice"
+          total_btn_price="0"
+          total_btn_qty="0"
+          id="totalbtnqtyprice<%-products[i].product_id%>"
+          >&nbsp;</span
+        >
+        <p
+          id="addprice<%-products[i].product_id%>"
+          qtyval="0"
+          priceval="0"
+          style="color: #fb524f; font-weight: 600"
+        >
+          0 Item(s) for £ 0.00
+        </p>
+        &nbsp;
+        <a
+          href="javascript:void(0)"
+          data-dismiss="modal"
+          onclick="addToCartArray()"
+          class="food-btn modal-btn"
+          ><span>Update Basket</span></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<% if(cart.length>0) { for (let dd = 0; dd < cart.length; dd++) {
+if(cart[dd].product_id==products[i].product_id) {%>
+<script type="text/javascript">
+  total_val = Number(<%-cart[dd].total_price%>) + Number(total_val);
+  total_qty = Number(total_qty) + Number(<%-cart[dd].qty%>);
+  $(document).ready(function()
+  {
+      var qty = Number(<%-cart[dd].qty%>);
+      var totalprice = <%-cart[dd].total_price%>;
+      $('#qty<%-cart[dd].variation_id%>').val(qty);
+      $('#price<%-cart[dd].variation_id%>').attr('price_val', totalprice);
+      $('#price<%-cart[dd].variation_id%>').html('£' + Number(totalprice).toFixed(2));
+
+      $('#addprice<%-products[i].product_id%>').attr('qtyval', total_qty);
+      $('#addprice<%-products[i].product_id%>').attr('priceval', total_val);
+
+      $('#totalbtnqtyprice<%-products[i].product_id%>').attr('total_btn_qty', total_qty);
+      $('#totalbtnqtyprice<%-products[i].product_id%>').attr('total_btn_price', total_val);
+
+      if(true){
+          $('#addprice<%-products[i].product_id%>').html(total_qty + ' Item(s) for £' + (Number(total_val).toFixed(2)));
+      }
+  });
+</script>
+<% } } }%>
+<script type="text/javascript">
+  $("#exampleModalCenter<%-products[i].product_id%>").on(
+    "hide.bs.modal",
+    function () {
+      if (false) {
+        $.ajax({
+          type: "POST",
+          url: "/boozly/cartdata",
+          success: function (datacart) {
+            if (datacart.length > 0) {
+              $(".popup-cart-qty").val(0);
+              $(".popup-cart-price").attr("price_val", 0);
+              $(".popup-cart-price").html("£" + Number(0).toFixed(2));
+              var totalQty = 0;
+              var totalPrice = 0;
+              for (let ds = 0; ds < datacart.length; ds++) {
+                if (datacart[ds].variation_id) {
+                  totalQty = Number(datacart[ds].qty) + totalQty;
+                  totalPrice = Number(datacart[ds].total_price) + totalPrice;
+                  $("#qty" + datacart[ds].variation_id).val(datacart[ds].qty);
+                  $("#price" + datacart[ds].variation_id).attr(
+                    "price_val",
+                    datacart[ds].total_price
+                  );
+                  $("#price" + datacart[ds].variation_id).html(
+                    "£" + Number(datacart[ds].total_price).toFixed(2)
+                  );
+                  //------
+                  if ($("#addprice" + datacart[ds].product_id) != null) {
+                    $("#addprice" + datacart[ds].product_id).html(
+                      $("#totalbtnqtyprice" + datacart[ds].product_id).attr(
+                        "total_btn_qty"
+                      ) +
+                        " Item(s) for £" +
+                        Number(
+                          $("#totalbtnqtyprice" + datacart[ds].product_id).attr(
+                            "total_btn_price"
+                          )
+                        ).toFixed(2)
+                    );
+                    $("#addprice" + datacart[ds].product_id).html(
+                      totalQty +
+                        " Item(s) for £" +
+                        Number(totalPrice).toFixed(2)
+                    );
+                  }
+                }
+              }
+            }
+          },
+        });
+      }
+      //alert('test');
+      //do your stuff
+      //dclear();
+      //$('.unit-counter-box').val(0);
+      //$('.total-price').html('£ 0.00');
+    }
+  );
+</script>
+<% } %>
+<script type="text/javascript">
+  // shop cart + - start here
+  $(".read-more").on("click", function () {
+    $(".summary-content").slideToggle("slow");
+    var $this = $(this);
+    $this.toggleClass("open");
+    if ($this.hasClass("open")) {
+      $this.html("Read less");
+    } else {
+      $this.html("Read more");
+    }
+  });
+  var d = [];
+  $(".qtybutton").on("click", function () {
+    var $button = $(this);
+    var p_id = $button.parent().find("input").attr("products");
+    var oldValue = $button.parent().find("input").val();
+    var tt = $("#addprice" + p_id + "").attr("qtyval");
+    var pt = $("#addprice" + p_id + "").attr("priceval");
+    if ($button.text() === "+") {
+      var newVal = parseFloat(oldValue) + 1;
+      tt = parseFloat(tt) + 1;
+    } else {
+      // Don't allow decrementing below zero
+      if (oldValue > 0) {
+        var newVal = parseFloat(oldValue) - 1;
+        tt = parseFloat(tt) - 1;
+      } else {
+        newVal = 0;
+      }
+    }
+    $button.parent().find("input").val(newVal);
+    variation_id = $button.parent().find("input").attr("variation_id");
+    var price = $("#price" + variation_id).attr("base_price");
+    if (d.length > 0) {
+      var someObject = d.some((item) => item.variation_id === variation_id);
+      if (someObject) {
+        var targetObject = d.findIndex(
+          (item) => item.variation_id === variation_id
+        );
+        d[targetObject].total_price = price * newVal;
+        d[targetObject].qty = newVal;
+      } else {
+        d.unshift({
+          product_id: $button.parent().find("input").attr("products"),
+          title: $button.parent().find("input").attr("title"),
+          qty: newVal,
+          value: price,
+          size: $button.parent().find("input").attr("size"),
+          unit: $button.parent().find("input").attr("unit"),
+          variation_id: variation_id,
+          img_path: $button.parent().find("input").attr("img_path"),
+          total_price: price * newVal,
+        });
+      }
+    } else {
+      d.push({
+        product_id: $button.parent().find("input").attr("products"),
+        title: $button.parent().find("input").attr("title"),
+        qty: newVal,
+        value: price,
+        size: $button.parent().find("input").attr("size"),
+        unit: $button.parent().find("input").attr("unit"),
+        variation_id: variation_id,
+        img_path: $button.parent().find("input").attr("img_path"),
+        total_price: price * newVal,
+      });
+    }
+    var qtychk = d.some((item) => item.qty === 0);
+    if (qtychk) {
+      var qtyindex = d.findIndex((item) => item.qty === 0);
+      d.splice(qtyindex, 1);
+    }
+    $("#qty" + variation_id).val(newVal);
+    $("#price" + variation_id).html("£" + Number(price * newVal).toFixed(2));
+    $("#price" + $button.parent().find("input").attr("variation_id")).attr(
+      "price_val",
+      price * newVal
+    );
+    var total_val = 0;
+    jQuery(".qty" + p_id + "").each(function () {
+      var currentElement = $(this);
+      var value = currentElement.attr("price_val"); // if it is an input/select/textarea field
+      total_val = Number(total_val) + Number(value);
+    });
+    $("#addprice" + p_id + "").html(
+      "" + tt + " Item(s) for £" + total_val.toFixed(2) + ""
+    );
+    $("#addprice" + p_id + "").attr("qtyval", tt);
+    $("#addprice" + p_id + "").attr("priceval", Number(price * newVal));
+
+    calc($button.parent().find("input").attr("variation_id"));
+  });
+
+  function calc(variation_id) {
+    var qty = $("#qty" + variation_id).val();
+    var price = $("#price" + variation_id).attr("base_price");
+    $("#price" + variation_id).html("£" + Number(price * qty).toFixed(2));
+  }
+
+  //--search filter---
+  var textPresetVal = new Choices("#choices-text-preset-values", {
+    removeItemButton: true,
+  });
+
+  function chngstore(id, pin) {
+    var store_id = id;
+    $.ajax({
+      type: "POST",
+      url: "/boozly/ajaxvariation",
+      data: {
+        store_id: store_id,
+        pincode: pin,
+      },
+      success: function (data) {
+        location.reload();
+      },
+    });
+  }
+
+  $(".moddata").on("click", function () {
+    if (false) {
+      $.ajax({
+        type: "POST",
+        url: "/boozly/cartdata",
+        success: function (datacart) {
+          if (datacart.length > 0) {
+            for (let dds = 0; dds < datacart.length; dds++) {
+              if (datacart[dds].variation_id) {
+                $("#qty" + datacart[dds].variation_id).val(datacart[dds].qty);
+                $("#price" + datacart[dds].variation_id).attr(
+                  "price_val",
+                  datacart[dds].total_price
+                );
+                $("#price" + datacart[dds].variation_id).html(
+                  "£" + Number(datacart[dds].total_price).toFixed(2)
+                );
+              }
+            }
+          }
+        },
+      });
+    }
+  });
+</script>

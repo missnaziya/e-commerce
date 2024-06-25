@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+    <!-- animate scss -->
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <!-- bootstarp css -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!-- icofont -->
+    <link rel="stylesheet" href="/assets/css/icofont.min.css">
+    <!-- lightcase css -->
+    <link rel="stylesheet" href="/assets/css/lightcase.css">
+    <!-- swiper css -->
+    <link rel="stylesheet" href="/assets/css/swiper.min.css">
+    <!-- cusyom scss -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Boozly - Alcoholic beverages delivered to your door within 60 minutes</title>
+    <style type="text/css">
+        .reapos {
+            position:relative;
+        }
+        .statusBtn {
+            background: #fb524f;
+            color: #fff;
+            padding: 5px 20px;
+            border-radius: 100px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .bottomStatusBtn {
+            background: #fb524f;
+            color: #fff;
+            padding: 5px 20px;
+            border-radius: 100px;
+            position: absolute;
+            right: 30px;
+            bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- preloader -->
+    <div class="preloader">
+        <div class="load loade">
+            <hr/>
+            <hr/>
+            <hr/>
+            <hr/>
+        </div>
+    </div>
+    <!-- preloader -->
+    <div id="popup-wrapper" style='display:none'>
+        <div id="popup" class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="product-item style-2">
+                        <div class="section-header">
+                            <h3>Your Location</h3>
+                            <p>Boozly needs access to your location in order to present you with local offers.</p>
+                        </div>
+                        <div class="popup-content">
+                            <div class="popup-title">
+                                <h5>Enter your post code</h5>
+                            </div>
+
+                            <div class="news-letter popup-letter">
+                                <div class="section-wrapper">
+                                    <div class="news-form location-form">
+                                        <form action="/">
+                                            <label>
+                                                    <input type="text" name="text" placeholder="Enter Your Post Code">
+                                                </label>
+                                            <input type="submit" name="submit" value="Enter" onClick="PopUp('hide')" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Homepage popup -->
+    <% include ../partials/header %>
+    <!-- header section ending -->
+    <!-- Contact Us Section Start Here -->
+    <section class="contact-information login padding-tb">
+        <div class="container">
+            <div class="section-wrapper past-orders-info">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5 col-sm-12">
+                        <aside>
+                            <div class="widget widget-category">
+                                <ul class="nav nav-tabs widget-wrapper" role="tablist" id="mytabs">
+                                    <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" class="active d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>My Profile</span></a></li>
+                                    <li><a href="#openorder" aria-controls="openorder" role="tab" data-toggle="tab" class="d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>Open Orders</span></a></li>
+                                    <li><a href="#pastorders" aria-controls="pastorders" role="tab" data-toggle="tab" class="d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>Past Orders</span></a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="col-lg-8 offset-lg-1 col-md-7 col-sm-12">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active show" role="tabpanel" id="profile">
+                                <%
+                                if(typeof FlashMsg != "undefined" && FlashMsg) 
+                                { 
+                                    %>
+                                    <label class="error"><%- FlashMsg %></label>
+                                    <% 
+                                }%>
+
+                                <div class="section-header text-left">
+                                    <h3>My Profile</h3>
+                                </div>
+                                <div class="banner-content past-orders">
+                                    <div class="banner-content-area">
+                                        <div class="user-account">
+                                            <h5>Account Details</h5>
+                                            <form id="myaccounts" method="post" action="/boozly/myaccounts">
+                                                <input type="hidden" name="customer_id" value="<%-data.customer_id%>" />
+                                                <input type="hidden" name="user_id" value="<%-data.user_id%>" />
+                                                <div class="form-group">
+                                                    <label>Your First Name</label>
+                                                    <input type="text" name="fname" class="form-control" aria-describedby="" value="<%-data.fname%>" placeholder="First Name" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Your Last Name</label>
+                                                    <input type="text" name="lname" class="form-control" aria-describedby="" value="<%-data.lname%>" placeholder="Hasan" />
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Your Email</label>
+                                                        <input type="email" name="email" class="form-control" aria-describedby="" value="<%-data.email%>" placeholder="someone@gmail.com" />
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Mobile Phone</label>
+                                                        <input type="tel" name="phone" class="form-control" aria-describedby="" value="<%-data.phone%>" placeholder="+0125985645" />
+                                                    </div>
+                                                </div>
+<!--                                                 <hr/> -->
+                                                <div class="signup-link text-center" style="display:none">
+                                                    <p>You need to supply your current password</p>
+                                                    <span></span>
+                                                </div>
+                                                <div class="form-group current-password" style="display:none">
+                                                    <label class="current-password">Current Password</label>
+                                                    <input type="password" class="form-control" id="current-password" name="text_password" aria-describedby="" value="<%-data.text_password%>" />
+                                                </div>
+                                                <div class="save-btn">
+                                                    <button type="submit" class="food-btn"><span>Save Changes</span></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- /user account -->
+                                        <div class="user-account">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h5>Address</h5>
+                                                </div>
+                                                <div class="col-md-4"></div>
+                                            </div>
+                                            <div class="user-address">
+                                                <% 
+                                                for (let i = 0; i < address.length; i++) 
+                                                {
+                                                    %>
+                                                    <div class="row">
+                                                        <% if(address[i].address)
+                                                        {
+                                                            %>
+                                                            <div class="user-address-head col-md-4">
+                                                                <p><%-(address[i].address).replace(/,/g, ", ")%></p>
+                                                            </div>
+                                                            <div class="col-md-6"></div>
+                                                            <div class="user-address-delete col-md-2">
+                                                                <a href="/boozly/delete-address/ <%-address[i].address_id%>" onclick="return confirm('Are you sure you want to Delete ?')"><span>Delete</span></a>
+                                                            </div>
+                                                            <%
+                                                        }%>
+                                                    </div>
+                                                    <%
+                                                }%>
+                                                <div class="row">
+                                                    <div class="user-address col-md-12">
+                                                        <a style="color:#fb524f;" href="#exampleModalCenter3" data-toggle="modal"><span>Add a New Address</span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /user account -->
+
+                                        <div class="user-account">
+                                            <h5>Saved cards</h5>
+                                            <div class="user-card-details">
+                                                <div class="user-card">
+                                                    <div class="visa-img">
+                                                        <img src="/assets/images/visa.png">
+                                                    </div>
+                                                    <div class="visa-text">
+                                                        <span> Ending 1234</span>
+                                                    </div>
+                                                    <div class="delete-btn">
+                                                        <a href="javascript:void(0);"><span>Delete</span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                        class="pagination loadmore all-blog-btn flex justify-content-center"
+                                      >
+                                        <div class="food-btn">
+                                                
+                                                <a href="/boozly/logout">
+                                                        <span>
+                                                        LOGOUT
+
+                                                    </span>
+                                                    </a>
+                                        </div>
+                                    </div>
+                                        <!-- /user account -->
+                                    </div>
+                                </div>
+                                <!-- /my-profile -->
+                            </div>
+                            <div class="tab-pane fade" role="tabpanel" id="openorder">
+                                <label class="error" id="savedorder" style="display:none">Order Saved Successfully</label>
+                                <div class="section-header text-left">
+                                    <h3>Open Orders</h3>
+                                </div>
+                                <div class="banner-content past-orders">
+                                    <% for (const [key, value] of Object.entries(openOrderResult))
+                                    {
+                                        var orderStatus = openOrderResult[key].order_status;
+                                        switch(openOrderResult[key].order_status)
+                                        {
+                                            case 'new':
+                                                orderStatus = 'Requested';
+                                            break;
+                                            case 'completed':
+                                                orderStatus = 'Completed';
+                                            break;
+                                            case 'cancel':
+                                                orderStatus = 'Cancelled';
+                                            break;
+                                            case 'out_delivery':
+                                                orderStatus = 'Out for delivery / Ready for collection';
+                                            break;
+                                            case 'pending':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'delivered':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'accept':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'ready':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'arrive':
+                                                orderStatus = 'In progress';
+                                            break;
+                                        }
+                                        %>
+                                        <div class="banner-content-area reapos">
+                                            <div class="statusBtn"><%-orderStatus%></div>
+                                            <div class="meta-tag">
+                                                <div class="date-view">
+                                                    <span class="date orderdate"><%-openOrderResult[key].order_date%></span>. <a href="#detailed-order<%-openOrderResult[key].order_id%>" data-toggle="modal" class="view">View Order</a>
+                                                </div>
+                                            </div>
+                                            <h4>
+                                                <a href="#detailed-order<%-openOrderResult[key].order_id%>" data-toggle="modal">
+                                                    <%-openOrderResult[key].name%>, <%-openOrderResult[key].country%>
+                                                </a>
+                                            </h4>
+                                            <ul class="order-address">
+                                                <li style="color: #362725; font-weight: 600;">
+                                                    <%-openOrderResult[key].name%><% if(openOrderResult[key].city != "") {%>, <%-openOrderResult[key].city%><% } %><% if(openOrderResult[key].country != "") {%>, <%-openOrderResult[key].country%><% } %><% if(openOrderResult[key].pin_code != "") {%>, <%-openOrderResult[key].pin_code%><% } %>
+                                                </li>
+                                            </ul>
+                                            <ul class="order-details">
+                                            <%
+                                            if (orders[openOrderResult[key].order_id] && orders[openOrderResult[key].order_id].length)
+                                            {
+                                                for (let i = 0; i < orders[openOrderResult[key].order_id].length; i++)
+                                                {
+                                                    %>
+                                                    <li>
+                                                        <span>
+                                                            <%-orders[openOrderResult[key].order_id][i].title%> <%-orders[openOrderResult[key].order_id][i].size%> <%-orders[openOrderResult[key].order_id][i].unit%> <%-orders[openOrderResult[key].order_id][i].package%>
+                                                        </span>
+                                                    </li>
+                                                    <%
+                                                }
+                                            }%>
+                                            </ul>
+                                            <div class="meta-post mb-0">
+                                                <ul>
+                                                    <li style="font-weight: 600;color: #362725;font-size: 16px;">
+                                                        <i style="margin-right: 0;" class="icofont-pound"></i><span><%-Number(openOrderResult[key].total_cost).toFixed(2)%></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <%
+                                    }
+                                    %>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" role="tabpanel" id="pastorders">
+                                <div class="section-header text-left">
+                                    <h3>Past Orders</h3>
+                                </div>
+                                <div class="banner-content past-orders">
+                                    <% 
+                                    for (const [key, value] of Object.entries(pastOrderResult))
+                                    {
+                                        var orderStatus = pastOrderResult[key].order_status;
+                                        switch(pastOrderResult[key].order_status)
+                                        {
+                                            case 'new':
+                                                orderStatus = 'Requested';
+                                            break;
+                                            case 'completed':
+                                                orderStatus = 'Completed';
+                                            break;
+                                            case 'cancel':
+                                                orderStatus = 'Cancelled';
+                                            break;
+                                            case 'out_delivery':
+                                                orderStatus = 'Out for delivery / Ready for collection';
+                                            break;
+                                            case 'pending':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'delivered':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'accept':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'ready':
+                                                orderStatus = 'In progress';
+                                            break;
+                                            case 'arrive':
+                                                orderStatus = 'In progress';
+                                            break;
+                                        }
+                                        %>
+                                        <div class="banner-content-area reapos">
+                                            <div class="statusBtn"><%-orderStatus%></div>
+                                            <div class="meta-tag">
+                                                <div class="date-view">
+                                                    <span class="date orderdate"><%-pastOrderResult[key].order_date%></span>. <a href="#detailed-order<%-pastOrderResult[key].order_id%>" data-toggle="modal" class="view">View Order</a>
+                                                </div>
+                                            </div>
+                                            <h4>
+                                                <a href="#detailed-order<%-pastOrderResult[key].order_id%>" data-toggle="modal">
+                                                    <%-pastOrderResult[key].name%>, <%-pastOrderResult[key].country%>
+                                                </a>
+                                            </h4>
+                                            <ul class="order-address">
+                                                <li style="color: #362725; font-weight: 600;">
+                                                    <%-pastOrderResult[key].name%><% if(pastOrderResult[key].city != "") {%>, <%-pastOrderResult[key].city%><% } %><% if(pastOrderResult[key].country != "") {%>, <%-pastOrderResult[key].country%><% } %><% if(pastOrderResult[key].pin_code != "") {%>, <%-pastOrderResult[key].pin_code%><% } %>
+                                                </li>
+                                            </ul>
+                                            <ul class="order-details">
+                                            <% 
+                                            if (pastorders[pastOrderResult[key].order_id] && pastorders[pastOrderResult[key].order_id].length)
+                                            {
+                                                for (let i = 0; i < pastorders[pastOrderResult[key].order_id].length; i++)
+                                                {
+                                                    %>
+                                                    <li>
+                                                        <span>
+                                                            <%-pastorders[pastOrderResult[key].order_id][i].title%> <%-pastorders[pastOrderResult[key].order_id][i].size%> <%-pastorders[pastOrderResult[key].order_id][i].unit%> <%-pastorders[pastOrderResult[key].order_id][i].package%>
+                                                        </span>
+                                                    </li>
+                                                    <%
+                                                }
+                                            }%>
+                                            </ul>
+                                            <div class="meta-post mb-0">
+                                                <ul>
+                                                    <li style="font-weight: 600;color: #362725;font-size: 16px;">
+                                                        <i style="margin-right: 0;" class="icofont-pound"></i><span><%-Number(pastOrderResult[key].total_cost).toFixed(2)%></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <%
+                                    }
+                                    %>
+                                </div>
+                                <!-- /past-pastorders -->
+                            </div>
+                            <!-- /past-orders -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+    </section>
+    <!-- Contact Us Section Ending Here -->
+    <% if (ISMOBILE === "1") { %>
+        <!-- MOBILE TAB MENU Here -->
+            <% include ../partials/tabBar %>
+        <% } else { %>
+            <% include ../partials/footer %>
+        <% } %>
+    <!-- Footer Section Ending Here -->
+    <!-- scrollToTop start here -->
+    <a href="javascript:void(0);" class="scrollToTop"><i class="icofont-swoosh-up"></i></a>
+    <!-- scrollToTop ending here -->
+    
+    
+
+    <div class="modal fade edit-address" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle">Delivery Address</h4>
+                    <div class="modal-remove-btn">
+                        <a data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="icofont-close"></i></a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="panel panel-primary">
+                            <form method="post" id="addressform" action="/boozly/saveaddress/?loc=accounts">
+                                <div class="collapse panel panel-primary" id="openNewAddress" style="display:block;">
+                                    <div class="panel-heading text-left"></div>
+                                    <div class="panel-body">
+                                        <div id="address">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Street address 1</label>
+                                                    <input class="form-control" name="address1" id="street_number">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Street address 2</label>
+                                                    <input class="form-control" name="address2" id="route">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Town / City</label>
+                                                    <input class="form-control field" name="city" id="locality">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Country</label>
+                                                    <input class="form-control" name="country" id="administrative_area_level_1">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Post code</label>
+                                                    <input class="form-control" name="post_code" id="postal_code">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Phone No.</label>
+                                                    <input class="form-control" name="phone" id="phone_no.">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" id="update" class="food-btn"><span>Add</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <% for (const [key, value] of Object.entries(openOrderResult))
+    {
+        var orderStatus = openOrderResult[key].order_status;
+        switch(openOrderResult[key].order_status)
+        {
+            case 'new':
+                orderStatus = 'Requested';
+            break;
+            case 'completed':
+                orderStatus = 'Completed';
+            break;
+            case 'cancel':
+                orderStatus = 'Cancelled';
+            break;
+            case 'out_delivery':
+                orderStatus = 'Out for delivery / Ready for collection';
+            break;
+            case 'pending':
+                orderStatus = 'In progress';
+            break;
+            case 'delivered':
+                orderStatus = 'In progress';
+            break;
+            case 'accept':
+                orderStatus = 'In progress';
+            break;
+            case 'ready':
+                orderStatus = 'In progress';
+            break;
+            case 'arrive':
+                orderStatus = 'In progress';
+            break;
+        }
+        %>
+        <div class="modal fade booze-modal" id="detailed-order<%-openOrderResult[key].order_id%>" tabindex="-1" role="dialog" aria-labelledby="detailed-orderTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content widget">
+                    <div class="modal-header widget-header reapos">
+                        <div class="banner-content past-orders">
+                            <div class="banner-content-area reapos">
+                                <div class="meta-tag">
+                                    <div class="date">
+                                        <span class="orderdate"><%-openOrderResult[key].order_date%></span>
+                                        
+                                    </div>
+                                </div>
+                                <h4><a href="javascript:void(0);" data-toggle="modal"><%-openOrderResult[key].name%>, <%-openOrderResult[key].country%></a></h4>
+                                <ul class="order-address">
+                                    <li style="color: #362725; font-weight: 600;"><%-openOrderResult[key].name%><% if(openOrderResult[key].city != "") {%>, <%-openOrderResult[key].city%><% } %><% if(openOrderResult[key].country != "") {%>, <%-openOrderResult[key].country%><% } %><% if(openOrderResult[key].pin_code != "") {%>, <%-openOrderResult[key].pin_code%><% } %></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="modal-remove-btn">
+                            <a data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="icofont-close"></i></a>
+                        </div>
+                        <div class="bottomStatusBtn"><%-orderStatus%></div>
+                    </div>
+                    <div class="modal-body">
+                        <!-- single modal content -->
+                        <div class="single-modal-content">
+                            <table class="table">
+                                <tbody>
+                                    <%
+                                    if (orders[openOrderResult[key].order_id] && orders[openOrderResult[key].order_id].length)
+                                    {
+                                        for (let i = 0; i < orders[openOrderResult[key].order_id].length; i++)
+                                        {
+                                            if(i ==0)
+                                            {
+                                                %>
+                                                <tr class="border-top">
+                                                <%
+                                            }
+                                            else
+                                            {
+                                                %>
+                                                <tr>
+                                                <%
+                                            }
+                                            %>
+                                            <td scope="row"><%-orders[openOrderResult[key].order_id][i].title%><br><%-orders[openOrderResult[key].order_id][i].size%> <%-orders[openOrderResult[key].order_id][i].unit%><br><%-orders[openOrderResult[key].order_id][i].package%></td>
+                                            <td scope="row"><%-orders[openOrderResult[key].order_id][i].quantity%></td>                                 
+                                            <td style="text-align: right;" class="modal-price">£<%-Number(orders[openOrderResult[key].order_id][i].total_amount).toFixed(2)%></td>
+                                            </tr>
+                                            <%
+                                        }
+                                    }
+                                    %>
+                                    
+                                    <tr class="border-top">
+                                        <td style="font-weight: 600;">Subtotal</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(openOrderResult[key].sub_total_amt).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">- Promo</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(openOrderResult[key].promo_amount).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">+ Delivery fee</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(openOrderResult[key].delivery_cost).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">+ Tip</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(openOrderResult[key].added_tip).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">+ Tax</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(openOrderResult[key].tax_amt).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">Charged</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(openOrderResult[key].total_cost).toFixed(2)%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%
+    }
+    %>
+    
+    <% for (const [key, value] of Object.entries(pastOrderResult))
+    {
+        var orderStatus = pastOrderResult[key].order_status;
+        switch(pastOrderResult[key].order_status)
+        {
+            case 'new':
+                orderStatus = 'Requested';
+            break;
+            case 'completed':
+                orderStatus = 'Completed';
+            break;
+            case 'cancel':
+                orderStatus = 'Cancelled';
+            break;
+            case 'out_delivery':
+                orderStatus = 'Out for delivery / Ready for collection';
+            break;
+            case 'pending':
+                orderStatus = 'In progress';
+            break;
+            case 'delivered':
+                orderStatus = 'In progress';
+            break;
+            case 'accept':
+                orderStatus = 'In progress';
+            break;
+            case 'ready':
+                orderStatus = 'In progress';
+            break;
+            case 'arrive':
+                orderStatus = 'In progress';
+            break;
+        }
+        %>
+        <div class="modal fade booze-modal" id="detailed-order<%-pastOrderResult[key].order_id%>" tabindex="-1" role="dialog" aria-labelledby="detailed-orderTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content widget">
+                    <div class="modal-header widget-header reapos">
+                        <div class="banner-content past-orders">
+                            <div class="banner-content-area reapos">
+                                <div class="meta-tag">
+                                    <div class="date">
+                                        <span class="orderdate"><%-pastOrderResult[key].order_date%></span>
+                                    </div>
+                                </div>
+                                <h4><a href="javascript:void(0);" data-toggle="modal"><%-pastOrderResult[key].name%>, <%-pastOrderResult[key].country%></a></h4>
+                                <ul class="order-address">
+                                    <li style="color: #362725; font-weight: 600;"><%-pastOrderResult[key].name%><% if(pastOrderResult[key].city != "") {%>, <%-pastOrderResult[key].city%><% } %><% if(pastOrderResult[key].country != "") {%>, <%-pastOrderResult[key].country%><% } %><% if(pastOrderResult[key].pin_code != "") {%>, <%-pastOrderResult[key].pin_code%><% } %></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="modal-remove-btn">
+                            <a data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="icofont-close"></i></a>
+                        </div>
+                        
+                        <div class="bottomStatusBtn"><%-orderStatus%></div>
+                    </div>
+                    <div class="modal-body">
+                        <!-- single modal content -->
+                        <div class="single-modal-content">
+                            <table class="table">
+                                <tbody>
+                                    <%
+                                    if (pastorders[pastOrderResult[key].order_id] && pastorders[pastOrderResult[key].order_id].length)
+                                    {
+                                        for (let i = 0; i < pastorders[pastOrderResult[key].order_id].length; i++)
+                                        {
+                                            if(i ==0)
+                                            {
+                                                %>
+                                                <tr class="border-top">
+                                                <%
+                                            }
+                                            else
+                                            {
+                                                %>
+                                                <tr>
+                                                <%
+                                            }
+                                            %>
+                                            <td scope="row"><%-pastorders[pastOrderResult[key].order_id][i].title%><br><%-pastorders[pastOrderResult[key].order_id][i].size%> <%-pastorders[pastOrderResult[key].order_id][i].unit%><br><%-pastorders[pastOrderResult[key].order_id][i].package%></td>
+                                            <td scope="row"><%-pastorders[pastOrderResult[key].order_id][i].quantity%></td>                                 
+                                            <td style="text-align: right;" class="modal-price">£<%-Number(pastorders[pastOrderResult[key].order_id][i].total_amount).toFixed(2)%></td>
+                                            </tr>
+                                            <%
+                                        }
+                                    }%>
+                                    
+                                    <tr class="border-top">
+                                        <td style="font-weight: 600;">Subtotal</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(pastOrderResult[key].sub_total_amt).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">- Promo</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(pastOrderResult[key].promo_amount).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">+ Delivery fee</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(pastOrderResult[key].delivery_cost).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">+ Tip</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(pastOrderResult[key].added_tip).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">+ Tax</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(pastOrderResult[key].tax_amt).toFixed(2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">Charged</td>
+                                        <td style="font-weight: 600;"></td>
+                                        <td style="font-weight: 600;text-align: right;">£<%-Number(pastOrderResult[key].total_cost).toFixed(2)%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%
+    }
+    %>
+
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/waypoints.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/isotope.pkgd.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/swiper.min.js"></script>
+    <script src="/assets/js/lightcase.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/functions.js"></script>
+    <script src="/assets/js/extention/choices.js"></script>
+    <script src="/assets/js/jquery.elevatezoom.js"></script>
+    <script src="/assets/js/jquery_validate.js"></script>
+    <script src="/assets/js/validation.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+
+
+    <% include ../partials/activeclass %>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            if (pathname[5] == '?openorders') {
+                $('#mytabs a[href="#openorder"]').tab('show')
+            }
+            if (pathname[5] == '?openorder') {
+                $('#mytabs a[href="#openorder"]').tab('show')
+                document.getElementById("savedorder").style.display = "block";
+            }
+            if (pathname[5] == '?pastorders') {
+                $('#mytabs a[href="#pastorders"]').tab('show')
+            }
+            $('.orderdate').each(function()
+            {
+                var OrderDateString = $(this).html();
+                var GmtOrderDate = new Date(OrderDateString).toUTCString();
+
+		var localtimeGRE = moment.utc(OrderDateString).local().format('DD MMMM YYYY HH:mm a');
+                $(this).html(localtimeGRE);
+            });
+            $.ajax({
+                type: "POST",
+                url: '/boozly/dynamic_cart',
+                data: {
+                    refresh_cart: 'refresh'
+                },
+                success: function(d) {
+                    $('#cartdynamic').html(d);
+                    $.ajax({
+                        type: "POST",
+                        url: '/boozly/mobile_dynamic_cart',
+                        data: {
+                            refresh_cart: 'refresh'
+                        },
+                        success: function(d) {
+                            $('#cartdynamicMobile').html(d);
+                        }
+                    });
+                }
+            });
+            $('#update').on('click', function() {
+                $('#addressform').submit();
+            });
+        });
+
+
+    </script>    
+                          
+</body>
+</html>

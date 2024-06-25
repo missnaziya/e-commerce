@@ -1,0 +1,282 @@
+<% include ../partials/header %>
+
+<main class="page-main">
+	<!-- Breadcrumbs Block -->
+	<div class="block breadcrumbs">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/boozly">Home</a></li>
+				<li>Register</li>
+			</ul>
+		</div>
+	</div>
+	<!-- //Breadcrumbs Block -->
+
+	<div class="block">
+		<h2 class="text-center h-lg h-decor">Register</h2>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2"></div>
+				<div class="col-lg-12">
+					<div class="order-form-box">
+
+						<%   if(typeof FlashMsg != 'undefined' && FlashMsg) { %>
+									<div class="alert alert-success"><%- FlashMsg %><button type="button" class="close"
+											data-dismiss="alert">&times;</button></div>
+									<% } %>
+									<div class="row">
+										<div class="col-sm-6">
+											<h3>Partner Details</h3>
+										</div>
+
+							
+									</div>
+							
+
+
+									<div class="divider-line"></div>
+
+						<form  action="/boozly/register-partner" enctype="multipart/form-data" method="post" id="regis" novalidate="novalidate">
+							<div class="row">
+								<div class="col-lg-12">
+								<div class="row">	
+									<div class="col-sm-6">
+										<h6>Full Name</h6>
+										<div class="">
+											<input type="text" class="input-custom input-custom--sm input-full"
+												name="p_name" style="margin-top: 10px;"
+												placeholder="Enter Your Full Name">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<h6>City</h6>
+										<div class="">
+
+											<select style="margin-top:10px;" name="city_id"
+												class="input-custom input-custom--sm input-full">
+												<option value="" disabled="" selected="">- Please Select -</option>
+
+												<% city.forEach((city, index) => { %>
+												<option value="<%=city.id%>"><%=city.name%></option>
+												<% })%>
+
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">	
+									<div class="col-sm-6">
+										<h6>Category</h6>
+										<div class="">
+
+											<select style="margin-top:10px;" name="category_id"
+												class="input-custom input-custom--sm input-full" id="category_id">
+												<option value="" disabled="" selected="">- Please Select -</option>
+
+												<% category.forEach((category, index) => { %>
+												<option value="<%=category.category_id%>"><%=category.cat_name%></option>
+												<% })%>
+
+											</select>
+										</div>
+									</div>
+<div class="col-sm-6">
+										<h6>Sub Category</h6>
+										<div class="" id="chng" >
+<div style="margin-top: 10px;">
+											<select multiple aria-placeholder="Please Select"	class="input-custom input-custom--sm input-full chosen-select" name="sub_cat" id="sub_cat" >
+												
+											</select>
+										</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-sm-6">
+										<h6>Email</h6>
+										<div class="">
+											<input type="text" class="input-custom input-custom--sm input-full"
+												name="p_email" style="margin-top: 10px;" placeholder="Enter Your Email">
+										</div>
+									</div>
+
+									<div class="col-sm-6">
+										<h6>Phone No.</h6>
+										<div class="">
+											<input type="text" class="input-custom input-custom--sm input-full"
+												name="p_phone" style="margin-top: 10px;"
+											  minlength='8' maxlength="14"	placeholder="Enter Your Phone No.">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+
+									<div class="col-sm-6">
+										<h6>Password</h6>
+										<div class="">
+											<input type="password" class="input-custom input-custom--sm input-full"
+												id="p_password" name="p_text_password" style="margin-top: 10px;" minlength="6"
+												placeholder="Enter Your Password">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<h6>Address</h6>
+										<div class="">
+											<input type="text" class="input-custom input-custom--sm input-full"
+												id="p_address" name="p_address" style="margin-top: 10px;"
+												placeholder="Enter Your Address">
+											<span id='message'></span>
+
+										</div>
+									</div>
+									</div>
+									<div class="row">
+											<div class="col-sm-6">
+										<h6>State</h6>
+										<div class="">
+											<input type="text" class="input-custom input-custom--sm input-full"
+												id="p_state" name="p_state" style="margin-top: 10px;"
+												placeholder="Enter Your State">
+											<span id='message'></span>
+
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<h6>Zip Code</h6>
+										<div class="">
+											<input type="number" class="input-custom input-custom--sm input-full"
+												id="p_zip" name="p_zip" style="margin-top: 10px;"
+											 min="0"  maxlength="14"	placeholder="Enter Your Zip Code">
+											<span id='message'></span>
+
+										</div>
+									</div>
+									</div>
+									<div class="row">
+									<div class="col-sm-6">
+										<h6>Partner Radius</h6>
+										<div class="">
+											<input type="number" class="input-custom input-custom--sm input-full"
+												id="p_miles" name="p_miles" style="margin-top: 10px;"
+											 min="0" maxlength="14"	placeholder="Enter Your Partner Radius">
+											<span id='message'></span>
+
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!--Inner Holder Start-->
+										<div class="inner-holder">
+											<h6>Profile Photo</h6>
+										  <input type="file"  class="input-custom input-custom--sm input-full" name="profile_image">
+										</div>
+										<!--Inner Holder End-->
+									  </div>
+									</div>
+									<div class="row">
+									  <div class="col-sm-6">
+										<!--Inner Holder Start-->
+										<div class="inner-holder">
+											<h6>License</h6>
+										  <input type="file"  class="input-custom input-custom--sm input-full" name="license_image">
+										</div>
+										<!--Inner Holder End-->
+									  </div>
+
+									  <div class="col-sm-6">
+										<!--Inner Holder Start-->
+										<div class="inner-holder">
+											<h6>Insurance</h6>
+										  <input type="file"  class="input-custom input-custom--sm input-full" name="insurance_image">
+										</div>
+										<!--Inner Holder End-->
+									  </div>
+									</div>
+
+									<div class="row">
+									  <div class="col-sm-6">
+										<!--Inner Holder Start-->
+										<div class="inner-holder">
+											<h6>Registration Card</h6>
+										  <input type="file"  class="input-custom input-custom--sm input-full" name="rc_image">
+										</div>
+										<!--Inner Holder End-->
+									  </div>
+									  <div class="col-sm-6">
+									  </div>
+									</div>
+
+						
+
+							</div>
+
+
+								
+								
+							</div>
+							<div class="divider"></div>
+							<div class="divider-line"></div>
+							<div class="divider"></div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-wide">Register</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-2"></div>
+			</div>
+		</div>
+	</div>
+</main>
+<% include ../partials/footer %>
+
+         <!-- MOBILE TAB MENU Here -->
+		 <% if (ISMOBILE === "1") { %>
+			<% include ../partials/tabBar %>
+		<% } %>
+
+
+<script>
+
+  if ($('#regis').length) {
+    $("#regis").validate({
+      rules: {
+        p_name: { required: true },
+        p_email: { required: true ,email: true},
+        p_phone:{required:true,digits:true},
+        p_text_password: { required: true },
+        city_id: { required: true },
+	      category_id: { required: true }
+      },
+
+    });
+
+  }
+
+
+</script>
+
+<script>
+		$(document).ready(function(){
+			$('#category_id').on('change', function(){
+				var category_id = $(this).val();
+			
+				if(category_id){
+					$.ajax({
+						type:'POST',
+						url:'/boozly/subcat',
+						data:'category_id='+category_id,
+						success:function(html){
+							
+							$('#chng').html(html);
+						}
+					}); 
+				}
+			});
+			
+		   
+			});
+		</script>
+		 <% include ../partials/activeclass.ejs %>

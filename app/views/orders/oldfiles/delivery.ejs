@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+        <!-- animate scss -->
+        <link rel="stylesheet" href="/assets/css/animate.css">
+        <!-- bootstarp css -->
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+        <!-- icofont -->
+        <link rel="stylesheet" href="/assets/css/icofont.min.css">
+        <!-- lightcase css -->
+        <link rel="stylesheet" href="/assets/css/lightcase.css">
+        <!-- swiper css -->
+        <link rel="stylesheet" href="/assets/css/swiper.min.css">
+        <!-- cusyom scss -->
+        <link rel="stylesheet" href="/assets/css/style.css">
+
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+        <title>Boozly</title>
+        <style type="text/css">
+            .customer-info{
+                background: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- preloader -->
+        <div class="preloader"><div class="load loade"><hr/><hr/><hr/><hr/></div></div>
+        <!-- preloader -->
+
+    <% include ../partials/header %>
+
+        <!-- Delivery Section Start Here -->
+        <section class="delivery-info food-apps">
+            <div class="container">
+                <div class="section-wrapper">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="arrival-time" style="z-index:9;">
+                                <div class="user-account">
+                                    <div class="estimated-arrival">
+                                        <span>Estimated arrival</span>
+                                        <h4>20:30 - 21:30</h4>
+                                    </div>
+                                    <div id="progressbar" style="display:none;"></div>
+                                </div>
+                                <!-- /user account -->
+                            </div>
+                        </div>
+                        <div class="col-lg-4 offset-lg-1" style="z-index:9;">
+                            <div class="customer-info">
+
+                                <div class="single-checkout left single-delivery">
+                                    <div class="user-account">
+                                        <div class="store-list">
+                                            <p>
+                                                <% 
+                                                for (let i = 0; i < address.length; i++) 
+                                                {
+                                                    if(address[i].address && orders[orderId][0].address_id == address[i].address_id)
+                                                    {
+                                                        %>
+                                                        <i class="icofont-google-map"></i><%-(address[i].address).replace(/,/g, ", ")%>
+                                                        <%
+                                                    }
+                                                }%>
+                                            </p>
+                                            <span style="display:none;">"Please knock quietly"</span>
+                                        </div>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+
+                                <div class="single-checkout left single-delivery" style="display:none;">
+                                    <div class="user-account">
+                                        <div class="store-list">
+                                            <p><strong>Baljeet</strong> is delivering your order</p>
+                                        </div>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+
+                                <div class="single-checkout left single-delivery">
+                                    <div class="user-account">
+                                        <div class="banner-content past-orders">
+                                            <div class="banner-content-area">
+                                                <% for (const [key, value] of Object.entries(orders))
+                                                {
+                                                    %>
+                                                    <div class="banner-content-area">
+                                                        <ul class="order-address">
+                                                            <li style="color: #362725; font-weight: 600;"><%-orders[key][0].name%>, <%-orders[key][0].country%></li>
+                                                            <li style="color: #362725; font-weight: 600;">
+                                                                <%-orders[key][0].name%><% if(orders[key][0].city != "") {%>, <%-orders[key][0].city%><% } %><% if(orders[key][0].country != "") {%>, <%-orders[key][0].country%><% } %><% if(orders[key][0].pin_code != "") {%>, <%-orders[key][0].pin_code%><% } %>
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="order-details">
+                                                        <% 
+                                                        for (let i = 0; i < orders[key].length; i++)
+                                                        {
+                                                            %>
+                                                            <li>
+                                                                <span>
+                                                                    <%-orders[key][i].title%> <%-orders[key][i].size%> <%-orders[key][i].unit%> <%-orders[key][i].package%>
+                                                                </span>
+                                                            </li>
+                                                            <%
+                                                        }%>
+                                                        </ul>
+                                                        <div class="meta-post mb-0">
+                                                            <ul>
+                                                                <li style="font-weight: 600;color: #362725;font-size: 16px;">
+                                                                    <i style="margin-right: 0;" class="icofont-pound"></i><span><%-Number(orders[key][0].total_cost).toFixed(2)%></span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <hr/>
+                                                    <%
+                                                }
+                                                %>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Delivery Section Section Ending Here -->
+
+        <!-- Delivery Section Start Here -->
+        <section class="map-info">
+            <!-- <iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d8677.248146689873!2d90.4018697690502!3d23.8777924491898!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x877363690775d948!2sYouth+Training+Academy!5e0!3m2!1sen!2sbd!4v1518686326914" allowfullscreen="" width="100%" height="600px" frameborder="0"></iframe> -->
+            <!-- <div id="map" style="width: 100%; height: 600px;"></div> -->
+            <iframe
+                width="100%"
+                height="600px"
+                frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAXUfctQqxktTfMmdu8NK50c09hkIyILMo&q=Dubai&zoom=15" allowfullscreen>
+            </iframe>
+
+
+            <div class="container">
+                <div class="section-wrapper">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Delivery Section Section Ending Here -->
+
+
+
+
+        <!-- Footer Section Start Here -->
+        
+        <% if (ISMOBILE === "1") { %>
+            <!-- MOBILE TAB MENU Here -->
+                <% include ../partials/tabBar %>
+            <% } else { %>
+                <% include ../partials/footer %>
+            <% } %>
+        <!-- Footer Section Ending Here -->
+        
+        <!-- scrollToTop start here -->
+        <a href="javascript:void(0);" class="scrollToTop"><i class="icofont-swoosh-up"></i></a>
+        <!-- scrollToTop ending here -->
+
+        
+        <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/waypoints.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/isotope.pkgd.min.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script src="/assets/js/swiper.min.js"></script>
+        <script src="/assets/js/lightcase.js"></script>
+        <script src="/assets/js/jquery.counterup.min.js"></script>
+        <script src="/assets/js/progressbar.js"></script>
+        <script src="/assets/js/functions.js"></script>
+        <script src="/assets/js/cookie.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false&key=AIzaSyAXUfctQqxktTfMmdu8NK50c09hkIyILMo" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function()
+              {
+                 if(checkCookie('addPromoCode'))
+                 {
+                    setCookie('addPromoCode', '', 1);
+                 }
+                 if(checkCookie('addTip'))
+                 {
+                    setCookie('addTip', '', 1);
+                 }
+              });
+              if(false)
+              {
+            var bar = new ProgressBar.Line(progressbar, {
+              strokeWidth: 4,
+              easing: 'easeInOut',
+              duration: 1400,
+              color: '#fb524f',
+              trailColor: '#eee',
+              trailWidth: 1,
+              svgStyle: {width: '100%', height: '100%'},
+              text: {
+                style: {
+                  // Text color.
+                  // Default: same as stroke color (options.color)
+                  color: '#999',
+                  position: 'absolute',
+                  right: '0',
+                  top: '30px',
+                  padding: 0,
+                  margin: 0,
+                  transform: null
+                },
+                autoStyleContainer: false
+              },
+              from: {color: '#FFEA82'},
+              to: {color: '#ED6A5A'},
+              step: (state, bar) => {
+                bar.setText(Math.round(bar.value() * 100) + ' %');
+              }
+            });
+
+            bar.animate(1.0);  // Number from 0.0 to 1.0
+            }
+        </script>
+        <script type="text/javascript">
+            if(false)
+            {
+                    var locations = [
+                      ['Bondi Beach', -33.890542, 151.274856, 4],
+                      ['Coogee Beach', -33.923036, 151.259052, 5],
+                      ['Cronulla Beach', -34.028249, 151.157507, 3],
+                      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+                      ['Maroubra Beach', -33.950198, 151.259302, 1]
+                    ];
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 10,
+                  center: new google.maps.LatLng(-33.92, 151.25),
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                var infowindow = new google.maps.InfoWindow();
+
+                var marker, i;
+
+                for (i = 0; i < locations.length; i++) {  
+                  marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                  });
+
+                  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                      infowindow.setContent(locations[i][0]);
+                      infowindow.open(map, marker);
+                    }
+                  })(marker, i));
+                }
+            }
+        </script>
+    </body>
+</html>

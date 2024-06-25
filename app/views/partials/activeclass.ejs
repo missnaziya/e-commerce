@@ -1,0 +1,17 @@
+<script type="text/javascript">
+    var siteurl =window.location.href;
+    var pathname=siteurl.split('/');
+    var active=pathname[4];
+  console.log(pathname)
+  if(!active || active=='logout'){
+      document.getElementById("home").className = "active";
+    }
+    if(active=='finddrink' || active=='finddrink'){
+      document.getElementById("finddrink").className = "active";
+    }else if(active=='myaccounts' || active=='myaccounts'){
+      document.getElementById("myaccounts").className = "active";
+    }else if(active=='login'  || active=='register' ){
+        document.getElementById("login").className = "active";
+    }
+    
+    </script>

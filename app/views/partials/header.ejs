@@ -1,0 +1,162 @@
+<div id="popup-wrapper" style="display:none">
+  <div id="popup" class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="product-item style-2">
+          <div class="popup-section">
+            <a class="showbtn close-btn" id="locationCloseBtn" style="display:none;float:right;cursor:pointer;" onclick="PopUp('hide')"><i class="icofont-close"></i></a>
+            <h3 id="popuph3" style="margin-bottom:10px !important;">Find Your<br />Nearest Store</h3>
+            <br />
+            <p style="display:none;" id="clrcarttext">Updating your store will clear your basket</p>
+            <form method="post" id="popup-form" action="/boozly/ajaxvariation" onsubmit="return validateStoreID();">
+              <div class="popup-content">
+                <div class="outline-select">
+                  <input type="hidden" id="url" name="url"></input>
+                  <select name="store_id" id="store_id">
+                    <option value="0">Select a store</option>
+                  </select>
+                  <span class="select-icon"><i class="icofont-caret-down"></i></span>
+                  <label class="error" id="storeselection" style=" margin-top:10px; padding:10px;display:none;">Please select a store</label>
+                </div>
+              </div>
+              <p class="or">Or</p>
+              <a href="javascript:void(0);">Use my current location</a>
+              <div class="popup-btn">
+                <button type="submit" class="food-btn"><span>DONE</span></button>
+              </div>
+            </form>
+            <script type="text/javascript">
+              function validateStoreID() {
+                var selStoreID = document.getElementById('store_id').value;
+                if (selStoreID == 0) {
+                  document.getElementById('storeselection').style.display = 'block';
+                  return false;
+
+                } else {
+                  document.getElementById('storeselection').style.display = 'none';
+                  return true;
+                }
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Menu Start Here -->
+<div class="mobile-menu">
+
+  <nav class="mobile-header d-xl-none">
+
+
+     
+  <div class="header-bar">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div> 
+    <div class="header-logo">
+      <a href="/boozly" class="logo"><img src="/assets/images/logo/01.png" alt="logo"></a>
+    </div>
+  
+    <ul class="basket-responsive">
+      <li class="cart-option" id="cartOptionLiMobile">
+
+        <div id="cartdynamicMobile">
+          <img src="/assets/images/header/cart.png" alt="shop-cart" id="piyucartshowsmobile">
+          <div class="count-item">0</div>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+
+  <nav class="menu">
+    <div class="mobile-menu-area d-xl-none">
+      <div class="mobile-menu-area-inner scrollbar">
+
+        <ul>
+          <li> <a id="home_mob" href="/boozly">Home</a></li>
+          <li><a id="finddrink_mpb" href="/boozly/finddrink">Find a Drink</a></li>
+
+          <%if(locals.user_id){%>
+          <li>
+            <a href="/boozly/myaccounts" id="myaccounts_mob" class="dd-icon-right">My Account</a>
+            <!-- <ul>
+              <li><a href="/boozly/myaccounts">My Profile</a></li>
+              <li><a href="/boozly/myaccounts/?openorders">Open Orders</a></li>
+              <li><a href="/boozly/myaccounts/?pastorders">Past Orders</a></li>
+            </ul> -->
+            <li><a href="/boozly/logout">Log Out</a></li>
+          </li>
+          <%}else{%>
+
+          <li><a id="login_mob" href="/boozly/login">Login</a></li>
+
+          <%}%>
+
+                </ul>
+                <div class="scocial-media">
+                    <a href="javascript:void(0);" class="facebook"><i class="icofont-facebook"></i></a>
+                    <a href="javascript:void(0);" class="twitter"><i class="icofont-twitter"></i></a>
+                    <a href="javascript:void(0);" class="linkedin"><i class="icofont-linkedin"></i></a>
+                    <a href="javascript:void(0);" class="vimeo"><i class="icofont-vimeo"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Mobile Menu Ending Here -->
+
+<!-- header section start -->
+<header class="header-section d-xl-block d-none">
+    <div class="container-fluid">
+        <div class="header-area">
+
+            <div class="col-md-3">
+                <div class="header-left">
+                    <div class="logo">
+                        <a href="/boozly"><img src="/assets/images/logo/01.png" alt="logo"></a>
+                    </div>
+                </div>
+                <!-- /header-left -->
+            </div>
+
+            <div class="col-md-9">
+                <div class="header-right">
+                    <div class="main-menu">
+                        <ul>
+                            <li> <a id="home" href="/boozly">Home</a></li>
+                            <li><a id="finddrink" href="/boozly/finddrink">Find a Drink</a></li>
+                            <%if(locals.user_id){%>
+                            <li>
+                                <a href="/boozly/myaccounts" id="myaccounts" class="dd-icon-right">My Account</a>
+                                <!-- <a href="/boozly/myaccounts" id="myaccounts">My Account</a> -->
+                                <ul>
+                                  <li><a href="/boozly/myaccounts">My Profile</a></li>
+                                  <li><a href="/boozly/myaccounts/?openorders">Open Orders</a></li>
+                                  <li><a href="/boozly/myaccounts/?pastorders">Past Orders</a></li>
+                                  <li><a href="/boozly/logout">Log Out</a></li>
+                                </ul>
+                            </li>
+                            <%}else{%>
+
+                            <li><a id="login" href="/boozly/login">Login</a></li>
+
+                            <%}%>
+                            <li class="cart-option" id="cartOptionLi">
+                                <div id="cartdynamic">
+                                    <img src="/assets/images/header/cart.png" id="piyucartshows" alt="shop-cart">
+                                    <div class="count-item">0</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /header-right -->
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+    <!-- animate scss -->
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <!-- bootstarp css -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!-- icofont -->
+    <link rel="stylesheet" href="/assets/css/icofont.min.css">
+    <!-- lightcase css -->
+    <link rel="stylesheet" href="/assets/css/lightcase.css">
+    <!-- swiper css -->
+    <link rel="stylesheet" href="/assets/css/swiper.min.css">
+    <!-- cusyom scss -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Boozly - Alcoholic beverages delivered to your door within 60 minutes</title>
+</head>
+
+<body>
+    <!-- preloader -->
+    <div class="preloader">
+        <div class="load loade">
+            <hr/>
+            <hr/>
+            <hr/>
+            <hr/>
+        </div>
+    </div>
+    <!-- preloader -->
+
+    <div id="popup-wrapper" style='display:none'>
+        <div id="popup" class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="product-item style-2">
+                        <div class="section-header">
+                            <h3>Your Location</h3>
+                            <p>Boozly needs access to your location in order to present you with local offers.</p>
+                        </div>
+                        <div class="popup-content">
+                            <div class="popup-title">
+                                <h5>Enter your post code</h5>
+                            </div>
+
+
+                            <div class="news-letter popup-letter">
+                                <div class="section-wrapper">
+                                    <div class="news-form location-form">
+                                        <form action="/">
+                                            <label>
+                                                    <input type="text" name="text" placeholder="Enter Your Post Code">
+                                                </label>
+                                            <input type="submit" name="submit" value="Enter" onClick="PopUp('hide')" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /Homepage popup -->
+
+
+
+
+
+
+
+    <% include ../partials/header %>
+        <!-- header section ending -->
+
+
+
+
+        <!-- Contact Us Section Start Here -->
+        <section class="contact-information login padding-tb">
+            <div class="container">
+                <div class="section-wrapper past-orders-info">
+
+
+
+
+
+
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-5 col-sm-12">
+                            <aside>
+                                <div class="widget widget-category">
+                                    <ul class="nav nav-tabs widget-wrapper" role="tablist" id="mytabs">
+                                        <li>
+                                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" class="active d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>My Profile</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#openorder" aria-controls="openorder" role="tab" data-toggle="tab" class="d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>Open Orders</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#pastorders" aria-controls="pastorders" role="tab" data-toggle="tab" class="d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>Past Orders</span></a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </aside>
+                        </div>
+
+                        <div class="col-lg-8 offset-lg-1 col-md-7 col-sm-12">
+
+
+                            <div class="tab-content">
+
+
+
+                                <div class="tab-pane fade in active show" role="tabpanel" id="profile">
+                                    <%   if(typeof FlashMsg != 'undefined' && FlashMsg) { %>
+                                        <label class="error"><%- FlashMsg %></label>
+                                        <% } %>
+
+
+
+
+
+                                            <div class="section-header text-left">
+                                                <h3>My Profile</h3>
+                                            </div>
+                                            <div class="banner-content past-orders">
+                                                <div class="banner-content-area">
+                                                    <div class="user-account">
+                                                        <h5>Account Details</h5>
+                                                        <form id="myaccounts" method="post" action="/boozly/myaccounts">
+                                                            <div class="form-group">
+                                                                <label for="">Your First Name</label>
+                                                                <input type="text" name="fname" class="form-control" aria-describedby="" value="<%-data.fname%>" placeholder="First Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Your Last Name</label>
+                                                                <input type="text" name="lname" class="form-control" aria-describedby="" value="<%-data.lname%>" placeholder="Hasan">
+                                                            </div>
+
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6">
+                                                                    <label for="">Your Email</label>
+                                                                    <input type="email" name="email" class="form-control" aria-describedby="" value="<%-data.email%>" placeholder="someone@gmail.com">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <label for="">Mobile Phone</label>
+                                                                    <input type="tel" name="phone" class="form-control" aria-describedby="" value="<%-data.phone%>" placeholder="+0125985645">
+                                                                </div>
+                                                            </div>
+
+                                                            <hr>
+
+                                                            <div class="signup-link text-center">
+                                                                <p>You need to supply your current passwod</p>
+                                                                <span></span>
+                                                            </div>
+                                                            <div class="form-group current-password">
+                                                                <label class="current-password" for="">Current Password</label>
+                                                                <input type="password" class="form-control" id="current-password" name="text_password" aria-describedby="" value="<%-data.text_password%>">
+                                                            </div>
+
+
+                                                            <div class="save-btn">
+                                                                <button type="submit" class="food-btn"><span>Save Changes</span></button>
+                                                            </div>
+
+
+
+
+                                                        </form>
+                                                    </div>
+                                                    <!-- /user account -->
+
+
+
+
+
+                                                    <div class="user-account">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <h5>Address</h5>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                            </div>
+                                                            </div>
+
+
+                                                        <div class="user-address">
+                                                            <% for (let i = 0; i < address.length; i++) {%>
+<div class="row">
+                                                                <div class="user-address-head col-md-4">
+                                                                    <p>
+                                                                        <%-(address[i].address).replace(/,/g, ', ')%>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-6"></div>
+      <div class="user-address-delete col-md-2">
+
+                                                                    <a href="/boozly/delete-address/ <%-address[i].address_id%>" onclick="return confirm('Are you sure you want to Delete ?')"><span>Delete</span></a>
+
+                                                                </div>
+                                                                </div>
+                                                                 <%}%>
+                                                                 <div class="row">
+                                                         <div class="user-address col-md-12">
+                                                                <a style="color:#fb524f;" href="#exampleModalCenter3" data-toggle="modal"><span>Add a New Address</span></a>
+
+                                                            </div>
+                                                       </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /user account -->
+
+                                                    <div class="user-account">
+                                                        <h5>Saved cards</h5>
+                                                        <div class="user-card-details">
+
+                                                            <div class="user-card">
+                                                                <div class="visa-img">
+                                                                    <img src="/assets/images/visa.png">
+
+                                                                </div>
+
+                                                                <div class="visa-text">
+                                                                    <span> Ending 1234</span>
+                                                                </div>
+
+                                                                <div class="delete-btn">
+                                                                    <a href="#"><span>Delete</span></a>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- /user account -->
+
+
+
+                                                </div>
+
+                                            </div>
+                                            <!-- /my-profile -->
+                                </div>
+
+                                <div class="tab-pane fade" role="tabpanel" id="openorder">
+                                    <label class="error" id="savedorder" style="display:none">Order Saved Successfully</label>
+
+                                    <div class="section-header text-left">
+                                        <h3>Open Orders</h3>
+                                    </div>
+                                    <div class="banner-content past-orders">
+
+                                        <%for (const [key, value] of Object.entries(orders)) {%>
+
+                                            <div class="banner-content-area">
+                                                <div class="meta-tag">
+                                                    <div class="date-view">
+                                                        <span class="date"><%-orders[key][0].order_date.toLocaleString()%></span>. <a href="#detailed-order<%-key%>" data-toggle="modal" class="view">View Order</a>
+                                                    </div>
+                                                </div>
+                                                <h4>
+                                                    <a href="#detailed-order<%-key%>" data-toggle="modal">
+                                                        <%-orders[key][0].name%>,
+                                                            <%-orders[key][0].country%>
+                                                    </a>
+                                                </h4>
+                                                <ul class="order-address">
+                                                    <li style="color: #362725; font-weight: 600;">
+                                                        <%if(orders[key][0].name){%>
+                                                            <%-orders[key][0].name%>,
+                                                                <%}%>
+                                                                    <%if(orders[key][0].city){%>
+                                                                        <%-orders[key][0].city%>,
+                                                                            <%}%>
+                                                                                <%if(orders[key][0].country){%>
+                                                                                    <%-orders[key][0].country%>,
+                                                                                        <%}%>
+                                                                                            <%if(orders[key][0].pin_code){%>
+                                                                                                <%-orders[key][0].pin_code%>
+                                                                                                    <%}%>
+                                                    </li>
+                                                </ul>
+                                                <%    for (let i = 0; i < orders[key].length; i++) {%>
+
+                                                    <ul class="order-details">
+                                                        <li>
+                                                            <span><%-orders[key][i].title%><%-orders[key][i].size%>
+                                                        <%-orders[key][i].unit%>
+                                                        <%-orders[key][i].package%></span>
+                                                        </li>
+
+                                                    </ul>
+
+                                                    <%}%>
+                                                        <div class="meta-post mb-0">
+                                                            <ul>
+                                                                <li style="font-weight: 600;color: #362725;font-size: 16px;">
+                                                                    <i style="margin-right: 0;" class="icofont-pound"></i>
+                                                                    <span><%-orders[key][0].total_cost%></span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                            </div>
+
+
+                                            <hr>
+
+                                            <%}%>
+
+
+                                    </div>
+                                    <!-- /past-orders -->
+                                </div>
+
+
+
+
+                                <div class="tab-pane fade" role="tabpanel" id="pastorders">
+
+                                    <div class="section-header text-left">
+                                        <h3>Past Orders</h3>
+                                    </div>
+                                    <div class="banner-content past-orders">
+
+                                        <%for (const [key, value] of Object.entries(pastorders)) {%>
+
+                                            <%-console.log(pastorders[key][0].orderdate)%>
+                                                <div class="banner-content-area">
+                                                    <div class="meta-tag">
+                                                        <div class="date-view">
+                                                            <span class="date"><%-pastorders[key][0].order_date.toLocaleString()%></span>. <a href="#past-order<%-key%>" data-toggle="modal" class="view">View Order</a>
+                                                        </div>
+                                                    </div>
+                                                    <h4>
+                                                        <a href="#past-order<%-key%>" data-toggle="modal">
+                                                            <%-pastorders[key][0].name%>,
+                                                                <%-pastorders[key][0].country%>
+                                                        </a>
+                                                    </h4>
+                                                    <ul class="order-address">
+                                                        <li style="color: #362725; font-weight: 600;">
+                                                            <%-pastorders[key][0].name%>,
+                                                                <%-pastorders[key][0].city%>,
+                                                                    <%-pastorders[key][0].country%>,
+                                                                        <%-pastorders[key][0].pin_code%>
+                                                        </li>
+                                                    </ul>
+                                                    <%    for (let i = 0; i < pastorders[key].length; i++) {%>
+
+                                                        <ul class="order-details">
+                                                            <li>
+                                                                <span><%-pastorders[key][i].title%> <%-pastorders[key][i].size%>
+                                                        <%-pastorders[key][i].unit%>
+                                                        <%-pastorders[key][i].package%></span>
+                                                            </li>
+
+                                                        </ul>
+
+                                                        <%}%>
+                                                            <div class="meta-post mb-0">
+                                                                <ul>
+                                                                    <li style="font-weight: 600;color: #362725;font-size: 16px;">
+                                                                        <i style="margin-right: 0;" class="icofont-pound"></i>
+                                                                        <span><%-pastorders[key][0].total_cost%></span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                </div>
+
+
+                                                <hr>
+
+                                                <%}%>
+
+
+                                    </div>
+                                    <!-- /past-pastorders -->
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /row -->
+                </div>
+            </div>
+        </section>
+        <!-- Contact Us Section Ending Here -->
+
+
+
+        <% if (ISMOBILE === "1") { %>
+            <!-- MOBILE TAB MENU Here -->
+                <% include ../partials/tabBar %>
+            <% } else { %>
+                <% include ../partials/footer %>
+            <% } %>
+            <!-- Footer Section Ending Here -->
+
+            <!-- scrollToTop start here -->
+            <a href="#" class="scrollToTop"><i class="icofont-swoosh-up"></i></a>
+            <!-- scrollToTop ending here -->
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal 1 -->
+            <%for (const [key, value] of Object.entries(orders)) {%>
+                <div class="modal fade booze-modal" id="detailed-order<%-key%>" tabindex="-1" role="dialog" aria-labelledby="detailed-orderTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content widget">
+                            <div class="modal-header widget-header">
+
+                                <div class="banner-content past-orders">
+                                    <div class="banner-content-area">
+                                        <div class="meta-tag">
+                                            <div class="date">
+                                                <span><%-orders[key][0].order_date.toLocaleString()%></span>
+                                            </div>
+                                        </div>
+                                        <h4>
+                                            <a href="#detailed-order<%-key%> " data-toggle="modal">
+                                                <%-orders[key][0].name%>,
+                                                    <%-orders[key][0].country%>
+                                            </a>
+                                        </h4>
+                                        <ul class="order-address">
+                                            <li style="color: #362725; font-weight: 600;">
+                                                <%-orders[key][0].name%>,
+                                                    <%-orders[key][0].city%>,
+                                                        <%-orders[key][0].country%>,
+                                                            <%-orders[key][0].pin_code%>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="modal-remove-btn">
+                                    <a data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="icofont-close"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <!-- single modal content -->
+
+
+                                <div class="single-modal-content">
+                                    <table class="table">
+                                        <tbody>
+                                            <%    for (let i = 0; i < orders[key].length; i++) {%>
+                                                <tr class="border-top">
+                                                    <td scope="row">
+                                                        <%-orders[key][i].title%><br>
+                                                            <%-orders[key][i].size%>
+                                                                <%-orders[key][i].unit%>
+                                                                    <%-orders[key][i].package%>
+                                                    </td>
+                                                    <td scope="row">
+                                                        <%-orders[key][i].quantity%>
+                                                    </td>
+                                                    <td style="text-align: right;" class="modal-price">£
+                                                        <%-orders[key][i].price%>
+                                                    </td>
+                                                    <%}%>
+
+                                                        <tr class="border-top">
+                                                            <th style="font-weight: 600;">Subtotal</th>
+                                                            <td style="font-weight: 600;"></td>
+                                                            <td style="font-weight: 600;text-align: right;">£
+                                                                <%-orders[key][0].sub_total_amt%>
+                                                            </td>
+                                                        </tr>
+                                                        <%if (orders[key][0].delivery_cost!=0){%>
+                                                            <tr>
+                                                                <th style="font-weight: 600;">Delivery fee</th>
+                                                                <td style="font-weight: 600;"></td>
+                                                                <td style="font-weight: 600;text-align: right;">£
+                                                                    <%-orders[key][0].delivery_cost%>
+                                                                </td>
+                                                            </tr>
+                                                            <%}if (orders[key][0].added_tip!=0){%>
+                                                                <tr>
+                                                                    <th style="font-weight: 600;">Tip</th>
+                                                                    <td style="font-weight: 600;"></td>
+                                                                    <td style="font-weight: 600;text-align: right;">£
+                                                                        <%-orders[key][0].added_tip%>
+                                                                    </td>
+                                                                </tr>
+                                                                <%}if (orders[key][0].promo_amount!=0){%>
+                                                                    <tr>
+                                                                        <th style="font-weight: 600;">Coupon</th>
+                                                                        <td style="font-weight: 600;"></td>
+                                                                        <td style="font-weight: 600;text-align: right;">£
+                                                                            <%-orders[key][0].promo_amount%>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <%}%>
+                                                                        <tr>
+                                                                            <th style="font-weight: 600;">Charged</th>
+                                                                            <td style="font-weight: 600;"></td>
+                                                                            <td style="font-weight: 600;text-align: right;">£
+                                                                                <%-orders[key][0].total_cost%>
+                                                                            </td>
+                                                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <%}%>
+
+
+
+
+
+
+
+
+
+                    <%for (const [key, value] of Object.entries(pastorders)) {%>
+                        <div class="modal fade booze-modal" id="past-order<%-key%>" tabindex="-1" role="dialog" aria-labelledby="detailed-orderTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content widget">
+                                    <div class="modal-header widget-header">
+
+                                        <div class="banner-content past-orders">
+                                            <div class="banner-content-area">
+                                                <div class="meta-tag">
+                                                    <div class="date">
+                                                        <span><%-pastorders[key][0].order_date.toLocaleString()%></span>
+                                                    </div>
+                                                </div>
+                                                <h4>
+                                                    <a href="#past-order<%-key%> " data-toggle="modal">
+                                                        <%-pastorders[key][0].name%>,
+                                                            <%-pastorders[key][0].country%>
+                                                    </a>
+                                                </h4>
+                                                <ul class="order-address">
+                                                    <li style="color: #362725; font-weight: 600;">
+                                                        <%-pastorders[key][0].name%>,
+                                                            <%-pastorders[key][0].city%>,
+                                                                <%-pastorders[key][0].country%>,
+                                                                    <%-pastorders[key][0].pin_code%>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-remove-btn">
+                                            <a data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="icofont-close"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <!-- single modal content -->
+
+
+                                        <div class="single-modal-content">
+                                            <table class="table">
+                                                <tbody>
+                                                    <%    for (let i = 0; i < pastorders[key].length; i++) {%>
+                                                        <tr class="border-top">
+                                                            <td scope="row">
+                                                                <%-pastorders[key][i].title%><br>
+                                                                    <%-pastorders[key][i].size%>
+                                                                        <%-pastorders[key][i].unit%>
+                                                                            <%-pastorders[key][i].package%>
+                                                                                <td scope="row">
+                                                                                    <%-pastorders[key][i].quantity%>
+                                                                                </td>
+                                                                                <td style="text-align: right;" class="modal-price">£
+                                                                                    <%-pastorders[key][i].cost%>
+
+                                                                                </td>
+                                                                                <%}%>
+
+                                                                                    <tr class="border-top">
+                                                                                        <th style="font-weight: 600;">Subtotal</th>
+                                                                                        <td style="font-weight: 600;"></td>
+                                                                                        <td style="font-weight: 600;text-align: right;">£
+                                                                                            <%-pastorders[key][0].sub_total_amt%>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <%if (pastorders[key][0].delivery_cost!=0){%>
+                                                                                        <tr>
+                                                                                            <th style="font-weight: 600;">Delivery fee</th>
+                                                                                            <td style="font-weight: 600;"></td>
+                                                                                            <td style="font-weight: 600;text-align: right;">£
+                                                                                                <%-pastorders[key][0].delivery_cost%>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <%}if(pastorders[key][0].added_tip!=0){%>
+                                                                                            <tr>
+                                                                                                <th style="font-weight: 600;">Tip</th>
+                                                                                                <td style="font-weight: 600;"></td>
+                                                                                                <td style="font-weight: 600;text-align: right;">£
+                                                                                                    <%-pastorders[key][0].added_tip%>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <%}%>
+                                                                                                <%if (pastorders[key][0].promo_amount!=0){%>
+                                                                                                    <tr>
+                                                                                                        <th style="font-weight: 600;">Coupon</th>
+                                                                                                        <td style="font-weight: 600;"></td>
+                                                                                                        <td style="font-weight: 600;text-align: right;">£
+                                                                                                            <%-pastorders[key][0].promo_amount%>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <%}%>
+                                                                                                        <tr>
+                                                                                                            <th style="font-weight: 600;">Charged</th>
+                                                                                                            <td style="font-weight: 600;"></td>
+                                                                                                            <td style="font-weight: 600;text-align: right;">£
+                                                                                                                <%-pastorders[key][0].total_cost%>
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <%}%>
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                            <div class="modal fade edit-address" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="exampleModalLongTitle">Delivery Address</h4>
+                                            <div class="modal-remove-btn">
+                                                <a data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="icofont-close"></i></a>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <div class="modal-body">
+
+
+                                            <div class="container">
+
+                                                <div class="panel panel-primary">
+                                                    <form method="post" id="addressform" action="/boozly/saveaddress/?loc=accounts">
+
+
+                                                        <div class="collapse panel panel-primary" id="openNewAddress" style="display:block;">
+                                                            <div class="panel-heading text-left">
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="address">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label">Street address 1</label>
+                                                                            <input class="form-control" name="address1" id="street_number">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label">Street address 2</label>
+                                                                            <input class="form-control" name="address2" id="route">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label">Town / City</label>
+                                                                            <input class="form-control field" name="city" id="locality">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label">Country</label>
+                                                                            <input class="form-control" name="country" id="administrative_area_level_1">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label">Post code</label>
+                                                                            <input class="form-control" name="post_code" id="postal_code">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label">Phone No.</label>
+                                                                            <input class="form-control" name="phone" id="phone_no.">
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="javascript:void(0);" id="update" class="food-btn"><span>Add</span></a>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <script src="/assets/js/jquery.js"></script>
+                                <script src="/assets/js/waypoints.min.js"></script>
+                                <script src="/assets/js/bootstrap.min.js"></script>
+                                <script src="/assets/js/isotope.pkgd.min.js"></script>
+                                <script src="/assets/js/wow.min.js"></script>
+                                <script src="/assets/js/swiper.min.js"></script>
+                                <script src="/assets/js/lightcase.js"></script>
+                                <script src="/assets/js/jquery.counterup.min.js"></script>
+                                <script src="/assets/js/functions.js"></script>
+
+
+                                <script src="/assets/js/extention/choices.js"></script>
+                                <script src="/assets/js/jquery.elevatezoom.js"></script>
+
+
+                                <script src="/assets/js/jquery_validate.js"></script>
+
+                                <script src="/assets/js/validation.js"></script>
+                                <% include ../partials/activeclass %>
+                                    <script>
+                                        $(document).ready(function() {
+
+                                            if (pathname[5] == '?openorders') {
+                                                $('#mytabs a[href="#openorder"]').tab('show')
+                                            }
+                                            if (pathname[5] == '?openorder') {
+                                                $('#mytabs a[href="#openorder"]').tab('show')
+                                                document.getElementById("savedorder").style.display = "block";
+                                            }
+                                            if (pathname[5] == '?pastorders') {
+                                                $('#mytabs a[href="#pastorders"]').tab('show')
+                                            }
+
+
+                                        });
+                                    </script>
+                                    <script>
+                                        $('#update').on('click', function() {
+
+                                            $('#addressform').submit();
+                                        })
+                                    </script>
+                                    <% include ../partials/location %>
+</body>
+
+</html>

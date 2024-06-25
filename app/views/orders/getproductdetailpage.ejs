@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="shortcut icon"
+      href="/assets/images/favicon.png"
+      type="image/png"
+    />
+    <!-- animate scss -->
+    <link rel="stylesheet" href="/assets/css/animate.css" />
+    <!-- bootstarp css -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <!-- icofont -->
+    <link rel="stylesheet" href="/assets/css/icofont.min.css" />
+    <!-- lightcase css -->
+    <link rel="stylesheet" href="/assets/css/lightcase.css" />
+    <!-- swiper css -->
+    <link rel="stylesheet" href="/assets/css/swiper.min.css" />
+    <!-- cusyom scss -->
+    <link rel="stylesheet" href="/assets/css/search-filter.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>
+      Boozly - Alcoholic beverages delivered to your door within 60 minutes
+    </title>
+  </head>
+
+  <body>
+    <!-- preloader -->
+    <div class="preloader">
+      <div class="load loade">
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+      </div>
+    </div>
+    <!-- preloader -->
+    <% include ../partials/header %>
+    <!-- header section ending -->
+
+    <!-- Page Header Section Ending Here -->
+
+    <!-- Banner Section Start Here -->
+    <section class="bg-area banner search-banner">
+      <div class="container">
+        <div class="row">
+          <% if(storeID && store.hasOwnProperty('name')) { %>
+          <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12">
+            <div class="white-box">
+              <div class="white-box-content">
+                <h3><%-store.name%></h3>
+                <span class="address">
+                  <%-store.name%>, <%-store.city%>, <%-store.country%>
+                  <%-store.pincode%></span
+                >
+                <a
+                  style="
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #fb524f;
+                    text-decoration: underline;
+                  "
+                  href="javascript:void(0);"
+                  id="update"
+                  >Update</a
+                >
+                <ul class="booze-info">
+                  <li class="delivery-label"><span>Delivering Now</span></li>
+                  <li>
+                    <span
+                      >Delivery from £2.99 . 5.2km away . Open until
+                      <%-store.timing_to%></span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <% } else { %>
+          <div
+            class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12 add-height"
+          ></div>
+          <% } %>
+          <div class="col-xl-5 col-lg-5 col-md-5 col-12 hidden-sm">
+            <div class="banner-right-img">
+              <img src="/assets/images/banner/shape/right-img3.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Banner Section Ending Here -->
+
+    <!-- Blog Page Section Start Here -->
+    <div class="blog-section blog-page search-popup padding-tb blog-padd-tb">
+      <div class="container">
+        <div class="section-wrapper">
+          <div class="row justify-content-center">
+            <div class="col-lg-8 col-12">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="meta-post back-to">
+                      <ul>
+                        <li><a href="/boozly">Boozly&nbsp;&nbsp;</a> /</li>
+                        <li>
+                          <a href="/boozly/finddrink"
+                            >Find a Drink&nbsp;&nbsp;</a
+                          >
+                          /
+                        </li>
+                        <% if(productID && product != undefined &&
+                        product.hasOwnProperty('title')) { %>
+                        <li>
+                          <a href="javascript:void(0);"><%-product.title%></a>
+                        </li>
+                        <% } %>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="section-header text-left">
+                      
+                      <strong>
+                      <a href="/boozly/finddrink" class="back-btn">
+                        <!-- SVG for back button -->
+                        <svg width="16" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <!-- Optional: Text next to the SVG -->
+                        <span>
+                            Back
+
+                          </span>
+                        </a>
+                      </strong>
+
+
+                     <% if(productID && product != undefined &&
+                     product.hasOwnProperty('title')) { %>
+                     <h3><%-product.title%></h3>
+                     <span
+                       ><%-product.cat_name%>, <%-product.subcat_name%></span
+                     >
+                     <% } %>
+                   </div>
+                    <% if(productID && product != undefined &&
+                    product.hasOwnProperty('title')) { %>
+                    <div class="pro-des">
+                      <div class="summary">
+                        <p><%-product.description.substring(0,150)%>...</p>
+                      </div>
+                      <div class="summary-content">
+                        <p><%-product.description%></p>
+                      </div>
+                      <span class="read-more">Read more</span>
+                    </div>
+                    <% } %>
+                  </div>
+                </div>
+                <div class="row">
+                  <% for (let x = 0; x < vari.length; x++) {
+                  if(vari[x].product_id == productID) { %>
+                  <div class="col-xl-4 col-md-4 col-sm-6 col-12">
+                    <div class="p-food-item">
+                      <div class="p-food-inner">
+                        <div class="p-food-thumb">
+                          <img
+                            id="zoom_01"
+                            src="<%-vari[x].img_path%>"
+                            data-zoom-image="<%-vari[x].img_path%>"
+                          />
+                          <span class="green"
+                            ><h6><strong>Sale</strong></h6></span
+                          >
+                        </div>
+                        <div class="p-food-content">
+                          <h6 class="product-name">
+                            <a href="javascript:void(0);"
+                              ><%-vari[x].size%> <%-vari[x].unit%></a
+                            >
+                          </h6>
+                          <p class="product-qty"><%-vari[x].ptype%></p>
+                          <span class="product-price"
+                            >£<%-Number(vari[x].value).toFixed(2)%></span
+                          >
+                          <div class="cart-bottom unit-counter2">
+                            <div class="cart-plus-minus">
+                              <div class="dec qtybutton">-</div>
+                              <div class="dec qtybutton">-</div>
+                              <div class="dec qtybutton">-</div>
+                              <input
+                                class="cart-plus-minus-box unit-counter-box popup-cart-qty<%-productID%>"
+                                id="qty<%-vari[x].variation_id%>"
+                                products="<%-productID%>"
+                                img_path="<%-vari[x].img_path%>"
+                                title=" <%-product.title%>"
+                                variation_id="<%-vari[x].variation_id%>"
+                                size="<%-vari[x].size%>"
+                                unit="<%-vari[x].unit%>"
+                                package="<%-vari[x].ptype%>"
+                                type="text"
+                                name="qtybutton"
+                                value="0"
+                                readonly
+                              />
+                              
+                              <div class="inc qtybutton">+</div>
+                              <!-- <div class="inc qtybutton">+</div>
+                              <div class="inc qtybutton">+</div> -->
+                            </div>
+                            <span
+                              class="total-price product-prices qty<%-productID%> popup-cart-price<%-productID%>"
+                              price_val="0"
+                              base_price="<%-(vari[x].value).toFixed(2)%>"
+                              id="price<%-vari[x].variation_id%>"
+                              >
+                              <!-- <%= (vari[x].value !== undefined && vari[x].value !== null) ? `£${(vari[x].value).toFixed(2)}` : '£0.00' %> -->
+                              £0.00
+                              </span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } } %>
+                </div>
+                <!-- End row -->
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="widget widget-checkout">
+                <div class="widget-header">
+                  <h5 class="payment-title">Add To My Basket.</h5>
+                </div>
+                <div class="single-checkout">
+                  <div class="user-account">
+                    <table class="table summary-table" id="AddToMyBasket">
+                      <tbody>
+                        <tr>
+                          <th style="font-weight: 400">
+                            1 x 330ml Bottle, Single
+                          </th>
+                          <td style="font-weight: 400"></td>
+                          <td style="font-weight: 400; text-align: right">
+                            £2.00
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="font-weight: 400">
+                            3 x 330ml Bottle, 6 Pack
+                          </th>
+                          <td style="font-weight: 400"></td>
+                          <td style="font-weight: 400; text-align: right">
+                            £30.00
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="font-weight: 400; padding-bottom: 8px">
+                            2 x 330ml Bottle, 6 Pack
+                          </th>
+                          <td
+                            style="font-weight: 400; padding-bottom: 8px"
+                          ></td>
+                          <td
+                            style="
+                              font-weight: 400;
+                              text-align: right;
+                              padding-bottom: 8px;
+                            "
+                          >
+                            £40.00
+                          </td>
+                        </tr>
+                        <tr class="border-top">
+                          <th
+                            style="
+                              font-weight: 600;
+                              padding-top: 8px;
+                              padding-bottom: 8px;
+                            "
+                          >
+                            Total
+                          </th>
+                          <td
+                            style="
+                              font-weight: 600;
+                              padding-top: 8px;
+                              padding-bottom: 8px;
+                            "
+                          ></td>
+                          <td
+                            style="
+                              font-weight: 600;
+                              text-align: right;
+                              padding-top: 8px;
+                              padding-bottom: 8px;
+                            "
+                          >
+                            £72.00
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /user account -->
+                </div>
+                <div class="checkout-btn">
+                  <button
+                    id="addprice<%-product.product_id%>"
+                    qtyval="0"
+                    priceval="0"
+                    type="button"
+                    class="food-btn btn-lg"
+                    onclick="addToCartArray(<%-product.product_id%>)"
+                    style="cursor: pointer"
+                  >
+                    <span>Update Basket</span>
+                  </button>
+                </div>
+              </div>
+              <!--  End First module -->
+              <div class="widget widget-checkout">
+                <div class="shop-cart">
+                  <div class="section-wrapper">
+                    <div class="cart-top table-responsive">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td class="product-item">
+                              <div class="p-content">
+                                <span class="sin-pro">CATEGORY</span>
+                              </div>
+                            </td>
+                            <td><%-product.cat_name%></td>
+                          </tr>
+                          <tr>
+                            <td class="product-item">
+                              <div class="p-content">
+                                <span class="sin-pro">REGION</span>
+                              </div>
+                            </td>
+                            <td><%-store.city%></td>
+                          </tr>
+                          <tr>
+                            <td class="product-item">
+                              <div class="p-content">
+                                <span class="sin-pro">TYPE</span>
+                              </div>
+                            </td>
+                            <td>Craft</td>
+                          </tr>
+                          <tr>
+                            <td class="product-item">
+                              <div class="p-content">
+                                <span class="sin-pro">ABV</span>
+                              </div>
+                            </td>
+                            <td>2%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Blog Page Section Ending Here -->
+
+    <!-- Footer Section Start Here -->
+    <% if (ISMOBILE === "1") { %>
+      <!-- MOBILE TAB MENU Here -->
+          <% include ../partials/tabBar %>
+      <% } else { %>
+          <% include ../partials/footer %>
+      <% } %>
+    <!-- Footer Section Ending Here -->
+
+    <!-- scrollToTop start here -->
+    <a href="javascript:void(0);" class="scrollToTop"
+      ><i class="icofont-swoosh-up"></i
+    ></a>
+    <!-- scrollToTop ending here -->
+
+    <script src="/assets/js/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/assets/js/waypoints.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/isotope.pkgd.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/swiper.min.js"></script>
+    <script src="/assets/js/lightcase.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/functions.js"></script>
+    <script src="/assets/js/extention/choices.js"></script>
+    <script src="/assets/js/jquery.elevatezoom.js"></script>
+
+    <% include ../partials/activeclass %> <% include ../partials/location %>
+    <script type="text/javascript">
+      var d = [];
+      <%
+      if(cart.length>0)
+      {
+          for (let dd = 0; dd < cart.length; dd++)
+          {
+              %>
+              d.push({
+                  'product_id': '<%-cart[dd].product_id%>',
+                  'title': '<%-cart[dd].title%>',
+                  'qty': '<%-cart[dd].qty%>',
+                  'value': '<%-cart[dd].value%>',
+                  'size': '<%-cart[dd].size%>',
+                  'unit':'<%-cart[dd].unit%>',
+                  'package':'<%-cart[dd].package%>',
+                  'variation_id': '<%-cart[dd].variation_id%>',
+                  'img_path': '<%-cart[dd].img_path%>',
+                  'total_price': '<%-cart[dd].total_price%>'
+              });
+              <%
+          }
+      }
+      %>
+      $(document).ready(function()
+      {
+          $( ".read-more" ).click(function()
+          {
+              $( ".summary" ).slideToggle( "slow" );
+              $( ".summary-content" ).slideToggle( "slow" );
+              var $this = $(this);
+              $this.toggleClass("open");
+              if ($this.hasClass("open"))
+              {
+                  $this.html("Read less");
+              }
+              else
+              {
+                  $this.html("Read more");
+              }
+          });
+
+          $(".qtybutton").on("click", function()
+          {
+              var totalQty = 0;var totalPrice = 0;
+              var $button = $(this);
+              var p_id = $button.parent().find("input").attr('products');
+              var oldValue = $button.parent().find("input").val();
+
+              if ($button.text() === "+")
+              {
+                  var newVal = parseFloat(oldValue) + 1;
+              }
+              else
+              {
+                  // Don't allow decrementing below zero
+                  if (oldValue > 0)
+                  {
+                      var newVal = parseFloat(oldValue) - 1;
+                  }
+                  else
+                  {
+                      newVal = 0;
+                  }
+              }
+              $button.parent().find("input").val(newVal);
+              variation_id = $button.parent().find("input").attr('variation_id');
+              var price = $("#price" + variation_id).attr('base_price');
+              if (d.length > 0)
+              {
+                  var someObject = d.some(item => item.variation_id === variation_id);
+                  if (someObject)
+                  {
+                      var targetObject = d.findIndex(item => item.variation_id === variation_id);
+                      d[targetObject].total_price = price * newVal;
+                      d[targetObject].qty = newVal;
+                  }
+                  else
+                  {
+                      d.unshift({
+                          'product_id': $button.parent().find("input").attr('products'),
+                          'title': $button.parent().find("input").attr('title'),
+                          'qty': newVal,
+                          'value': price,
+                          'size': $button.parent().find("input").attr('size'),
+                          'unit': $button.parent().find("input").attr('unit'),
+                          'package': $button.parent().find("input").attr('package'),
+                          'variation_id': variation_id,
+                          'img_path': $button.parent().find("input").attr('img_path'),
+                          'total_price': price * newVal
+                      });
+                  }
+              }
+              else
+              {
+                  d.push({
+                      'product_id': $button.parent().find("input").attr('products'),
+                      'title': $button.parent().find("input").attr('title'),
+                      'qty': newVal,
+                      'value': price,
+                      'size': $button.parent().find("input").attr('size'),
+                      'unit': $button.parent().find("input").attr('unit'),
+                      'package': $button.parent().find("input").attr('package'),
+                      'variation_id': variation_id,
+                      'img_path': $button.parent().find("input").attr('img_path'),
+                      'total_price': price * newVal
+                  });
+              }
+              var qtychk = d.some(item => item.qty === 0);
+              if(qtychk)
+              {
+                  var qtyindex = d.findIndex(item => item.qty === 0);
+                  d.splice(qtyindex, 1);
+              }
+              $('#qty' + variation_id).val(newVal);
+              $('#price' + variation_id).html('£' + Number(price * newVal).toFixed(2));
+              $("#price" + $button.parent().find("input").attr('variation_id')).attr('price_val', (price * newVal));
+              var total_val = 0;
+              jQuery('.qty' + p_id + '').each(function()
+              {
+                  var currentElement = $(this);
+                  var value = currentElement.attr('price_val');
+                  total_val = Number(total_val) + Number(value);
+              });
+              jQuery('.popup-cart-qty'+p_id).each(function()
+              {
+                  var currentElement = $(this);
+                  var value = currentElement.val();
+                  totalQty = Number(totalQty) + Number(value);
+              });
+              jQuery('.popup-cart-price'+p_id).each(function()
+              {
+                  var currentElement = $(this);
+                  var value = currentElement.attr('price_val');
+                  totalPrice = Number(totalPrice) + Number(value);
+              });
+              if(false && $('#addprice'+ p_id) != null)
+              {
+                  $('#addprice'+ p_id).attr('qtyval', totalQty);
+                  $('#addprice'+ p_id).attr('priceval', Number(totalPrice).toFixed(2));
+                  $('#addprice'+ p_id).html(totalQty + ' Item(s) for £' + (Number(totalPrice).toFixed(2)));
+              }
+              calc($button.parent().find("input").attr('variation_id'));
+              addRow(p_id,d);
+          });
+          loadCartQuantity(<%-productID%>,d);
+      });
+
+
+
+
+      function calc(variation_id)
+      {
+          var qty = $("#qty" + variation_id).val();
+          var price = $("#price" + variation_id).attr('base_price');
+          $("#price" + variation_id).html('£' + Number(price * qty).toFixed(2));
+      }
+
+      function loadCartQuantity(productID,d)
+      {
+          if (productID && productID != 0 && d.length > 0)
+          {
+              for (let dd = 0; dd < d.length; dd++)
+              {
+                  if(productID == d[dd].product_id)
+                  {
+                      if($('#qty'+ d[dd].variation_id) != null)
+                      {
+                          $('#qty'+ d[dd].variation_id).val(d[dd].qty);
+                          $('#qty' + d[dd].variation_id).val(d[dd].qty);
+                          $('#price' + d[dd].variation_id).attr('price_val', d[dd].total_price);
+                          $('#price' + d[dd].variation_id).html('£' + Number(d[dd].total_price).toFixed(2));
+                      }
+                  }
+              }
+          }
+          addRow(productID,d);
+      }
+
+      function addRow(productID,d)
+      {
+          var isEmpty = true;
+          var table = document.getElementById("AddToMyBasket");
+          table.innerHTML = '';
+          if (productID && productID != 0 && d.length > 0)
+          {
+              var totalPrice = 0;
+              for (let dd = 0; dd < d.length; dd++)
+              {
+                  if(productID == d[dd].product_id)
+                  {
+                      isEmpty = false;
+                      var row = table.insertRow();
+                      row.id = "VRow"+d[dd].variation_id;
+                      //----------------
+                      var cell1 = row.insertCell(0);
+                      var cell2 = row.insertCell(1);
+                      var cell3 = row.insertCell(2);
+                      //----------------
+                      cell1.style.fontWeight = 400;
+                      cell2.style.fontWeight = 400;
+                      cell3.style.fontWeight = 400;
+                      cell3.style.textAlign = 'right';
+                      //----------------
+                      cell1.innerHTML = d[dd].qty + " x " + d[dd].size + " " + d[dd].unit + ", " + d[dd].package;
+                      cell2.innerHTML = "";
+                      cell3.innerHTML = "£" + Number(d[dd].total_price).toFixed(2);
+                      //-----------
+                      totalPrice = Number(totalPrice) + Number(d[dd].total_price);
+                  }
+              }
+              if(isEmpty == false)
+              {
+                  var row = table.insertRow();
+                  row.className = "border-top";
+                  row.id = "VTotalRow"
+                  //----------------
+                  var cell1 = row.insertCell(0);
+                  var cell2 = row.insertCell(1);
+                  var cell3 = row.insertCell(2);
+                  //----------------
+                  cell1.style.fontWeight = 600;
+                  cell1.style.paddingTop = '8px';
+                  cell1.style.paddingBottom = '8px';
+                  cell2.style.fontWeight = 600;
+                  cell2.style.paddingTop = '8px';
+                  cell2.style.paddingBottom = '8px';
+                  cell3.style.fontWeight = 600;
+                  cell3.style.paddingTop = '8px';
+                  cell3.style.paddingBottom = '8px';
+                  cell3.style.textAlign = 'right';
+                  //----------------
+                  cell1.innerHTML = "Total";
+                  cell2.innerHTML = "";
+                  cell3.innerHTML = "£" + Number(totalPrice).toFixed(2);
+                  //-----------
+              }
+          }
+          if(isEmpty)
+          {
+              var row = table.insertRow();
+              row.id = "emptyRow";
+              var cell1 = row.insertCell(0);
+              cell1.style.fontWeight = 600;
+              cell1.style.paddingTop = '8px';
+              cell1.style.paddingBottom = '8px';
+              cell1.colSpan = 3;
+              cell1.innerHTML = "Item not selected yet";
+          }
+      }
+
+
+
+      function dclear() {
+          d = [];
+      }
+
+      const addToCartArray = (PID) => {
+
+          var data = [];
+
+          data.push(d);
+          if($('#cardupdatesuccess') != null)
+          {
+              $('#cardupdatesuccess').remove();
+          }
+          $("#addprice"+PID).after('<label id="cardupdatesuccess" class="error" style=" margin-top:10px; padding:10px;text-align: center;" > Please wait...</label>');
+          setTimeout(function() {
+              $('#cardupdatesuccess').remove();
+          }, 5000);
+          $.ajax({
+              type: "POST",
+              url: '/boozly/dynamic_cart',
+              data: {
+                  'data': data
+              },
+              success: function(d) {
+                  $('#cartdynamic').html(d);
+                  $.ajax({
+                      type: "POST",
+                      url: '/boozly/mobile_dynamic_cart',
+                      data: {
+                          refresh_cart: 'refresh'
+                      },
+                      success: function(d) {
+                          $('#cartdynamicMobile').html(d);
+                          if($('#cardupdatesuccess') != null)
+                          {
+                              $('#cardupdatesuccess').remove();
+                          }
+                          $('#cardupdatesuccess').hide();
+                          $("#addprice"+PID).after('<label id="cardupdatesuccess" class="error" style=" margin-top:10px; padding:10px;text-align: center;" > Order Updated Successfully</label>');
+                          setTimeout(function() {
+                              $('#cardupdatesuccess').remove();
+                          }, 5000);
+                      }
+                  });
+              }
+          });
+      }
+    </script>
+     <script>
+      
+      $(document).ready(function() {
+    // Trigger a click event on the "plus" button of the first item
+    setTimeout(()=>{
+      $('.row > div:first-child .cart-plus-minus .inc:first').trigger('click');
+    },[1000])
+});
+
+
+
+  </script>
+  </body>
+</html>

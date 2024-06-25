@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="shortcut icon"
+      href="/assets/images/favicon.png"
+      type="image/png"
+    />
+    <!-- animate scss -->
+    <link rel="stylesheet" href="/assets/css/animate.css" />
+    <!-- bootstarp css -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <!-- icofont -->
+    <link rel="stylesheet" href="/assets/css/icofont.min.css" />
+    <!-- lightcase css -->
+    <link rel="stylesheet" href="/assets/css/lightcase.css" />
+    <!-- swiper css -->
+    <link rel="stylesheet" href="/assets/css/swiper.min.css" />
+    <!-- cusyom scss -->
+    <link rel="stylesheet" href="/assets/css/search-filter.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>
+      Boozly - Alcoholic beverages delivered to your door within 60 minutes
+    </title>
+  </head>
+
+  <body>
+    <!-- preloader -->
+    <div class="preloader">
+      <div class="load loade">
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+      </div>
+    </div>
+    <!-- preloader -->
+    <% include ../partials/header %>
+    <!-- header section ending -->
+
+    <!-- Page Header Section Ending Here -->
+
+    <!-- Banner Section Start Here -->
+    <section class="bg-area banner search-banner">
+      <div class="container">
+        <div class="row">
+          <% if(storeID && store.hasOwnProperty('name')) { %>
+          <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12">
+            <div class="white-box">
+              <div class="white-box-content">
+                <h3><%-store.name%></h3>
+                <span class="address">
+                  <%-store.name%>, <%-store.city%>, <%-store.country%>
+                  <%-store.pincode%></span
+                >
+                <a
+                  style="
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #fb524f;
+                    text-decoration: underline;
+                  "
+                  href="javascript:void(0);"
+                  id="update"
+                  >Update</a
+                >
+                <!-- <ul class="booze-info">
+                  <li class="delivery-label"><span>Delivering Now</span></li>
+                  <li>
+                    <span
+                      >Delivery from £2.99 . 5.2km away . Open until
+                      <%-store.timing_to%></span
+                    >
+                  </li>
+                </ul> -->
+              </div>
+            </div>
+          </div>
+          <% } else { %>
+          <div
+            class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12 add-height"
+          ></div>
+          <% } %>
+          <div class="col-xl-5 col-lg-5 col-md-5 col-12 hidden-sm">
+            <div class="banner-right-img">
+              <img src="/assets/images/banner/shape/right-img3.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Banner Section Ending Here -->
+
+    <!-- Blog Page Section Start Here -->
+    <div class="blog-section blog-page padding-tb blog-padd-tb mobile">
+      <div class="container">
+        <div class="section-wrapper">
+          <div class="row justify-content-center">
+            <div class="col-lg-3 col-12">
+              <aside>
+                <div
+                  class="widget widget-category booze-cat navbar-expand-lg navbar-light"
+                >
+                  <div class="widget-header booze-cat-header">
+                    <h5>Categories</h5>
+                    <button
+                      class="navbar-toggler"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#navbarSupportedContent"
+                      aria-controls="navbarSupportedContent"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation"
+                    >
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  </div>
+                  <div
+                    class="collapse navbar-collapse p-0"
+                    id="navbarSupportedContent"
+                  >
+                    <ul
+                      class="widget-wrapper cat-accordion w-auto m-0"
+                      id="accordion"
+                    >
+                      <% for (const [key, value] of Object.entries(category)) {
+                      %>
+                      <li class="card">
+                        <a
+                          role="button"
+                          data-toggle="collapse"
+                          data-parent=""
+                          href="#collapseOne<%-[key]%>"
+                          aria-expanded="true"
+                          aria-controls="collapseOne<%-[key]%>"
+                          class="d-flex flex-wrap justify-content-between"
+                          ><span><%-category[key][1]%></span>
+                        </a>
+                        <div
+                          id="collapseOne<%-[key]%>"
+                          class="collapse show"
+                          aria-labelledby="headingOne"
+                          data-parent=""
+                        >
+                          <div class="card-body accordion-content">
+                            <ul>
+                              <% for(let i = 0; i < category[key][0].length;
+                              i++) { %>
+                              <li>
+                                <input
+                                  type="checkbox"
+                                  class="chk"
+                                  name=""
+                                  value="<%=category[key][0][i].category_id+'_'+key%>"
+                                  id="<%=category[key][0][i].cat_name%>"
+                                />
+                                <label for="<%=category[key][0][i].cat_name%>"
+                                  ><%=category[key][0][i].cat_name%></label
+                                >
+                              </li>
+                              <% } %>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                      <% } %>
+                    </ul>
+                  </div>
+                </div>
+              </aside>
+            </div>
+
+            <div class="col-lg-9 col-12">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="s005">
+                    <form>
+                      <fieldset>
+                        <span
+                          >Filter your search results using keywords e.g.
+                          merlot, dark etc</span
+                        >
+                        <div class="inner-form">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="choices-text-preset-values"
+                              type="text"
+                              value="<%-search%>"
+                              placeholder="Add your filters here"
+                            />
+                          </div>
+                        </div>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="product-sort">
+                    <div class="filter_c">
+                      <span>Sort by:</span>
+                      <div class="select_box sel_2">
+                        <select name="sortBy" id="sortBy" class="form-control">
+                          <!-- <option value="manual">Featured</option> -->
+                          <option value="best-selling">Best Selling</option>
+                          <option value="title-ascending">
+                            Alphabetically, A-Z
+                          </option>
+                          <option value="title-descending">
+                            Alphabetically, Z-A
+                          </option>
+                          <option value="price-ascending">
+                            Price, low to high
+                          </option>
+                          <option value="price-descending">
+                            Price, high to low
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" id="products"></div>
+              <% if(pagebtn=='yes') { %>
+              <div
+                class="pagination loadmore all-blog-btn flex justify-content-center"
+              >
+                <a href="javascript:void(0);" class="pagingbtn food-btn"
+                  ><span>Load More</span></a
+                >
+              </div>
+              <% }%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Blog Page Section Ending Here -->
+
+     <!-- Footer Section Start Here -->
+     <% if (ISMOBILE === "1") { %>
+      <!-- MOBILE TAB MENU Here -->
+          <% include ../partials/tabBar %>
+      <% } else { %>
+          <% include ../partials/footer %>
+      <% } %>
+    <!-- Footer Section Ending Here -->
+
+    <!-- scrollToTop start here -->
+    <a href="javascript:void(0);" class="scrollToTop"
+      ><i class="icofont-swoosh-up"></i
+    ></a>
+    <!-- scrollToTop ending here -->
+
+    <script src="/assets/js/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/assets/js/waypoints.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/isotope.pkgd.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/swiper.min.js"></script>
+    <script src="/assets/js/lightcase.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/functions.js"></script>
+    <script src="/assets/js/extention/choices.js"></script>
+    <script src="/assets/js/jquery.elevatezoom.js"></script>
+
+    <% include ../partials/activeclass %> <% include ../partials/location %>
+    <script type="text/javascript">
+      if (document.cookie) {
+        $(document).ready(function () {
+          $.ajax({
+            type: "POST",
+            url: "/boozly/ajaxdata",
+            success: function (data) {
+              $("#products").html(data);
+            },
+          });
+        });
+      }
+
+      $(".chk").change(function () {
+        if ($(this).is(":checked")) {
+          var id = $(this).val() + "_add";
+          $(".load").css("display", "block");
+        } else {
+          var id = $(this).val() + "_remove";
+          $(".load").css("display", "block");
+        }
+        $.ajax({
+          type: "POST",
+          url: "/boozly/ajaxdata",
+          data: {
+            id: id,
+          },
+          success: function (data) {
+            $(".load").css("display", "none");
+            $("#products").html(data);
+          },
+        });
+      });
+
+      $("#sortBy").change(function () {
+        var id = $(this).val();
+        $.ajax({
+          type: "POST",
+          url: "/boozly/ajaxdata",
+          data: {
+            sortby: id,
+          },
+          success: function (data) {
+            $(".load").css("display", "none");
+            $("#products").html(data);
+          },
+        });
+      });
+      //---------
+      $(".pagingbtn").click(function (e) {
+        e.preventDefault();
+        var id = $(this).val();
+        $.ajax({
+          type: "POST",
+          url: "/boozly/ajaxdata",
+          data: { limits: "limits" },
+          success: function (data) {
+            $(".load").css("display", "none");
+            if (data == "no data") {
+              $(".pagination").hide();
+            } else {
+              $("#products").append(data);
+            }
+          },
+        });
+      });
+
+      $("#choices-text-preset-values").on("change", function () {
+        var id = $(this).val();
+        $.ajax({
+          type: "POST",
+          url: "/boozly/ajaxdata",
+          data: {
+            search: id,
+          },
+          success: function (data) {
+            $(".load").css("display", "none");
+            $("#products").html(data);
+          },
+        });
+      });
+
+      function dclear() {
+        d = [];
+      }
+
+      const addToCartArray = (
+        prod_id,
+        id,
+        title,
+        category,
+        sub_category,
+        img
+      ) => {
+        var data = [];
+
+        data.push(d);
+        $.ajax({
+          type: "POST",
+          url: "/boozly/dynamic_cart",
+          data: {
+            data: data,
+          },
+          success: function (d) {
+            $("#cartdynamic").html(d);
+            $.ajax({
+              type: "POST",
+              url: "/boozly/mobile_dynamic_cart",
+              data: {
+                refresh_cart: "refresh",
+              },
+              success: function (d) {
+                $("#cartdynamicMobile").html(d);
+              },
+            });
+          },
+        });
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+    <!-- animate scss -->
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <!-- bootstarp css -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!-- icofont -->
+    <link rel="stylesheet" href="/assets/css/icofont.min.css">
+    <!-- lightcase css -->
+    <link rel="stylesheet" href="/assets/css/lightcase.css">
+    <!-- swiper css -->
+    <link rel="stylesheet" href="/assets/css/swiper.min.css">
+    <!-- cusyom scss -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Boozly</title>
+    <style type='text/css'>
+        #OrderPickup, #OrderDelivery, #ADDTipContainer, #fees {
+            display: none;
+        }
+        #checkoutOrderForm {
+            width:100%;
+        }
+        #card-errors {
+            color: #721c24;
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .CardError {
+            color: #721c24;
+            position: relative;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- preloader -->
+    <div class="preloader">
+        <div class="load loade">
+            <hr/>
+            <hr/>
+            <hr/>
+            <hr/>
+        </div>
+    </div>
+    <!-- preloader -->
+
+    <!-- Mobile Menu Ending Here -->
+
+    <% include ../partials/header %>
+
+        <!-- Checkout Section Start Here -->
+        <section class="shop-cart padding-tb">
+            <div class="container">
+                <div class="section-wrapper past-orders-info">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section-header text-left">
+                                <h3>Checkout</h3>
+                                <%
+                                if(storeID && storeName && storeName.constructor === Array && storeName.length !== 0)
+                                {
+                                    %>
+                                    <span><i class="icofont-cup-cake"></i> <%-storeName[0].name%>, <%-storeName[0].city%></span>
+                                    <%
+                                }
+                                %>
+                                <!---<span><i class="icofont-clock-time"></i> Deliver in 20 - 40 mins</span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form id="checkoutOrderForm" method="post" class="row" onsubmit="return false;">
+
+                        <div class="col-lg-8">
+                            <div class="checkout-contents">
+                                <div class="single-checkout left">
+                                    <div class="user-account">
+                                        <h5>Order Type</h5>
+                                        <div class="delivery-note">
+                                            <div class="form-group">
+                                                <select name='order_type' class="form-control" id='OrderType'>
+                                                    <option value='Pickup'>Takeaway</option>
+                                                    <option value='Delivery'>Delivery</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="single-checkout left" id="OrderPickup">
+                                    <div class="user-account">
+                                        <h5>Please Collect From </h5>
+                                        <%
+                                        if(storeID && storeName && storeName.constructor === Array && storeName.length !== 0)
+                                        {
+                                            %>
+                                            <span><i class="icofont-cup-cake"></i> <%-storeName[0].name%>, <%-storeName[0].city%></span>
+                                            <%
+                                        }
+                                        %>
+                                        <div class="delivery-note">
+                                            <div class="form-group">
+                                                <label>Add a Collection Note</label>
+                                                <textarea id="cnotes" name="c_note" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+                                
+                                <div class="single-checkout left" id="OrderDelivery">
+                                    <div class="user-account">
+                                        <h5>Delivery Address</h5>
+                                        <div class="user-address">
+
+                                            <div class="user-address-head">
+                                                <%if(addresses[[0]]){%>
+                                                    <input type="hidden" id="addressId" value="<%-addresses[0].address_id%>" />
+                                                    <p id="address">
+                                                        <%-(addresses[0].address).replace(/,/g, ', ')%>
+                                                    </p>
+                                                    <%}%>
+                                            </div>
+                                            <div class="user-address-delete">
+                                                <a href="#exampleModalCenter3" data-toggle="modal"><span>Edit</span></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="delivery-note">
+                                            <div class="form-group">
+                                                <label>Add a Delivery Note</label>
+                                                <textarea id="notes" name="d_note" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+
+                                <div class="single-checkout left">
+                                    <div class="item-details">
+                                        <h5>Your Basket</h5>
+                                        <ul class="order-address" style='display:none;'>
+                                            <li style="color: #362725; font-weight: 600;">
+                                                <%if(addresses[[0]]){%>
+                                                    <%-(addresses[0].address).replace(/,/g, ', ')%>
+                                                <%}%>
+                                            </li>
+                                        </ul>
+
+                                        <% if (ISMOBILE === "1") { %>
+                                            <table class="table">
+                                                <tbody>
+                                                    <% for (let i = 0; i < cart.length; i++) { %>
+                                                    <tr>
+                                                        <td>Item</td>
+                                                        <td style="text-align: right;"><%= cart[i].title %><br /><%= cart[i].size %> <%= cart[i].unit %>&nbsp;<%= cart[i].package %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>QTY</td>
+                                                        <td style="text-align: center;">
+                                                            <div class="cart-bottom unit-counter">
+                                                                <div class="cart-plus-minus">
+                                                                    <div class="dec qtybutton">-</div>
+                                                                    <input class="cart-plus-minus-box unit-counter-box" type="text" name="qtybutton" cart_index="<%- i %>" variation_id="<%- cart[i].variation_id %>" id="qtychk<%- cart[i].variation_id %>" value="<%= cart[i].qty %>" readonly="readonly">
+                                                                    <div class="inc qtybutton">+</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Price</td>
+                                                        <td style="text-align: right; vertical-align: middle;" base_price="<%- cart[i].value %>" id="total_price<%- cart[i].variation_id %>">
+                                                            £<%= Number(cart[i].total_price).toFixed(2) %>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid #ddd;">
+
+                                                        <td>Remove</td>
+                                                        <td style="vertical-align: middle;">
+                                                            <span class="remove-btn">
+                                                                <a href="javascript:void(0);" class="checkout-cart-remove" cart_index="<%- i %>" title="Remove Item" style="color: #fb524f;">
+                                                                    <i class="icofont-close"></i>
+                                                                </a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                    <tr class="border-top">
+                                                        <td style="font-weight: 600;">Subtotal</td>
+                                                        <td style="font-weight: 600; text-align: right;" id="sub_total" total="<%- sub_total %>" class="total">£<%- Number(sub_total).toFixed(2) %></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } else { %>
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="col">Item</th>
+                                                        <th scope="col" style="text-align: center;">QTY</th>
+                                                        <th style="text-align: right;" scope="col">Price</th>
+                                                    </tr>
+                                                    <% for (let i = 0; i < cart.length; i++) { %>
+                                                    <tr>
+                                                        <td scope="row"><%= cart[i].title %><br /><%= cart[i].size %><%= cart[i].unit %>&nbsp;<%= cart[i].package %></td>
+                                                        <td style="text-align: center;">
+                                                            <div class="cart-bottom unit-counter">
+                                                                <div class="cart-plus-minus">
+                                                                    <div class="dec qtybutton">-</div>
+                                                                    <input class="cart-plus-minus-box unit-counter-box" type="text" name="qtybutton" cart_index="<%- i %>" variation_id="<%- cart[i].variation_id %>" id="qtychk<%- cart[i].variation_id %>" value="<%= cart[i].qty %>" readonly="readonly">
+                                                                    <div class="inc qtybutton">+</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td style="text-align: right; vertical-align: middle;" base_price="<%- cart[i].value %>" id="total_price<%- cart[i].variation_id %>">
+                                                            £<%= Number(cart[i].total_price).toFixed(2) %>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <span class="remove-btn">
+                                                                <a href="javascript:void(0);" class="checkout-cart-remove" cart_index="<%- i %>" title="Remove Item" style="color: #fb524f;">
+                                                                    <i class="icofont-close"></i>
+                                                                </a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                    <tr class="border-top">
+                                                        <th style="font-weight: 600;">Subtotal</th>
+                                                        <td style="font-weight: 600;"></td>
+                                                        <td style="font-weight: 600; text-align: right;" id="sub_total" total="<%- sub_total %>" class="total">£<%- Number(sub_total).toFixed(2) %></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } %>
+                                        
+                                    </div>
+                                </div>
+
+
+
+                                <!-- 
+<div class="single-checkout left">
+                                    <div class="user-account">
+                                        <h5>Payment Method</h5>
+                                        <div class="user-card-details">
+
+                                            <div class="user-card">
+                                                <div class="visa-img">
+                                                    <img src="/assets/images/visa.png">
+                                                </div>
+
+                                                <div class="visa-text">
+                                                    <span> Ending 1234</span>
+                                                </div>
+
+                                                <div class="delete-btn">
+                                                    <a href="#exampleModalCenter4" data-toggle="modal"><span>Edit</span></a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!~~ /user account ~~>
+                                </div>
+ -->
+
+                                <div class="single-checkout left">
+                                    <div class="user-account">
+                                        <h5>Add a Promo Code</h5>
+                                        <div class="coupon-code">
+                                            <div class="form-group" id="applyPromoContainer">
+                                                <input type="text" class="form-control" name="promo_code" value="" id="promo" placeholder="Coupon Code">
+                                                <button onclick="validatepromo()" id="promobtn">Apply</button>
+                                            </div>
+                                            <div class="form-group" id="appliedPromoContainer" style="display:none;">
+                                                <input type="text" class="form-control" value="" id="appliedPromo" placeholder="Coupon Code" style="cursor: not-allowed;" readonly="readonly">
+                                                <button id="appliedPromoButton">Applied</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+
+                                <div class="single-checkout left" id="ADDTipContainer">
+                                    <div class="user-account">
+                                        <h5>Add a Tip</h5>
+                                        <div class="coupon-code">
+                                            <div class="form-group" id="applyTipContainer" style="display:block;">
+                                                <input type="text" class="form-control" name="tip" value="" id="tip" placeholder="Add A Tip">
+                                                <button onclick="addtip()" id="tipbtn">ADD</button>
+                                            </div>
+                                            <div class="form-group" id="appliedTipContainer" style="display:none;">
+                                                <input type="text" class="form-control" name="updatetip" value="" id="updateTip" placeholder="Add A Tip">
+                                                <button onclick="updatetip()" id="appliedTipButton">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /col-8 -->
+
+                        <div class="col-lg-4">
+
+                            <div class="widget widget-checkout" id="sticker">
+                                <div class="widget-header">
+                                    <h5 class="payment-title">Order Summary</h5>
+                                </div>
+                                <div class="single-checkout">
+                                    <div class="user-account">
+                                        <table class="table summary-table">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="font-weight: 400;">Basket</th>
+                                                    <td style="font-weight: 400;"></td>
+                                                    <td style="font-weight: 400;text-align: right;" class="total">£<%-Number(sub_total).toFixed(2)%>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="font-weight: 400;">Promo discount -</th>
+                                                    <td style="font-weight: 400;"></td>
+                                                    <td style="font-weight: 400;text-align: right;" id="sidepromo">£0.00</td>
+                                                </tr>
+                                                <tr id="fees">
+                                                    <th style="font-weight: 400;">Delivery fee +</th>
+                                                    <td style="font-weight: 400;"></td>
+                                                    <td style="font-weight: 400;text-align: right;">£<%-Number(deliver_charges).toFixed(2)%>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="font-weight: 400;">Tax +</th>
+                                                    <td style="font-weight: 400;"></td>
+                                                    <td style="font-weight: 400;text-align: right;" id="taxes" taxes="<%-taxes%>" class="taxes">£<%-Number(taxes).toFixed(2)%>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="border-top">
+                                                    <th style="font-weight: 600;">Total</th>
+                                                    <td style="font-weight: 600;"></td>
+                                                    <td style="font-weight: 600;text-align: right;" id="total" promorate="0" taxrate="10" subTotal="<%-sub_total%>" delivery="<%-deliver_charges%>" tax="<%-taxes%>" tip="0" promo="0" total="<%-(Number(sub_total)+Number(deliver_charges)+Number(taxes))%>" class="totalamt">£<%-(Number(sub_total)+Number(deliver_charges)+Number(taxes)).toFixed(2)%></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /user account -->
+                                </div>
+                                <div id="card-element" class="bg-transparent text-white"></div>
+                                <div id="card-errors" role="alert"></div>
+                                <div class="checkout-btn">
+                                    <button type="submit" class="food-btn btn-lg"><span>Place Order</span></button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+            </div>
+            </div>
+        </section>
+        <!-- Checkout Section Ending Here -->
+        <% if (ISMOBILE === "1") { %>
+            <!-- MOBILE TAB MENU Here -->
+                <% include ../partials/tabBar %>
+            <% } else { %>
+                <% include ../partials/footer %>
+            <% } %>
+        <!-- Footer Section Ending Here -->
+
+        <!-- scrollToTop start here -->
+        <a href="javascript:void(0);" class="scrollToTop"><i class="icofont-swoosh-up"></i></a>
+        <!-- scrollToTop ending here -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal Edit Address/ Payment Modal 3 -->
+            <div class="modal fade edit-address" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLongTitle">Delivery Address</h4>
+                            <div class="modal-remove-btn">
+                                <a data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="icofont-close"></i></a>
+                            </div>
+                        </div>
+
+
+                        <div class="modal-body">
+
+
+                            <div class="container">
+
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading text-left">
+                                        <h4 class="panel-title">Use a Previous Address</h4>
+                                    </div>
+                                    <div class="panel-body">
+
+                                        <div class="exist-address">
+                                            <div class="row">
+                                                <%for(let i = 0; i < addresses.length; i++){%>
+                                                    <div class="col-md-12">
+                                                        <div class="form-check select-address">
+                                                            <%if(i == 0){%>
+                                                                <input class="form-check-input address-option" type="radio" name="exampleRadios" id="addresstext<%-i%>" index="<%-i%>" address_id="<%-addresses[i].address_id%>" value="<%-(addresses[i].address).replace(/,/g, ', ')%>" checked>
+                                                                <%}else{%>
+                                                                    <input class="form-check-input address-option" type="radio" name="exampleRadios" id="addresstext<%-i%>" index="<%-i%>" address_id="<%-addresses[i].address_id%>" value="<%-(addresses[i].address).replace(/,/g, ', ')%>">
+                                                                    <%}%>
+                                                                    <label class="form-check-label" for="addresstext<%-i%>">
+                                                                        <%-(addresses[i].address).replace(/,/g, ', ')%>
+                                                                    </label>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-check select-address">
+                                                            <input class="form-check-input address-option" type="radio" name="exampleRadios" id="addressOption3" value="option3">
+                                                            <label class="form-check-label orange-text" for="addressOption3">Add a New Address</label>
+                                                        </div>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <form method="post" id="addressform" action="/boozly/saveaddress">
+                                    <div class="collapse panel panel-primary" id="openNewAddress">
+                                        <div class="panel-heading text-left">
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="address">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Street address 1</label>
+                                                        <input class="form-control" name="address1" id="street_number">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Street address 2</label>
+                                                        <input class="form-control" name="address2" id="route">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Town / City</label>
+                                                        <input class="form-control field" name="city" id="locality">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Country</label>
+                                                        <input class="form-control" name="country" id="administrative_area_level_1">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Post code</label>
+                                                        <input class="form-control" name="post_code" id="postal_code">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Phone No.</label>
+                                                        <input class="form-control" name="phone" id="phone_no.">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="javascript:void(0);" onclick="chngaddress()" data-dismiss="modal" id="updateadd" class="food-btn"><span>Update</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edit Address/ Payment Modal 4 -->
+
+            <script src="/assets/js/jquery.js"></script>
+            <script src="/assets/js/waypoints.min.js"></script>
+            <script src="/assets/js/bootstrap.min.js"></script>
+            <script src="/assets/js/isotope.pkgd.min.js"></script>
+            <script src="/assets/js/wow.min.js"></script>
+            <script src="/assets/js/swiper.min.js"></script>
+            <script src="/assets/js/lightcase.js"></script>
+            <script src="/assets/js/jquery.counterup.min.js"></script>
+            <script src="/assets/js/jquery.sticky.js"></script>
+            <script src="/assets/js/functions.js"></script>
+            <script src="/assets/js/cookie.js"></script>
+            <script src="/assets/js/jquery_validate.js"></script>
+            <script src="/assets/js/validation.js"></script>
+            <script src="https://js.stripe.com/v3/"></script>
+            <script type="text/javascript">
+            var ad_id = 0;
+            var index = 0;
+
+            $('.address-option').change(function () {
+                if ($(this).is(':checked'))
+                {
+                    index = $(this).attr('index');
+                    ad_id = $(this).attr('address_id');
+                }
+            });
+            var CartPlusMinus = $('.cart-plus-minus');
+            CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
+            CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+            
+            $(".qtybutton").on("click", function ()
+            {
+                var $button = $(this);
+                var oldValue = $button.parent().find("input").val();
+                if ($button.text() === "+")
+                {
+                    var newVal = parseFloat(oldValue) + 1;
+                }
+                else
+                {
+                    // Don't allow decrementing below zero
+                    if (oldValue > 1)
+                    {
+                        var newVal = parseFloat(oldValue) - 1;
+                    }
+                    else
+                    {
+                        newVal = 1;
+                    }
+                }
+
+                $button.parent().find("input").val(newVal);
+
+                if (!(oldValue == 1 && $button.text() === "-"))
+                {
+                    calc($button.parent().find("input").attr('variation_id'), $button.text());
+                }
+            });
+            
+            
+            
+            function showOrderTypeBlock()
+            {
+                var orderType = $('#OrderType').val();
+                
+                document.getElementById('OrderPickup').style.display = 'none';
+                document.getElementById('OrderDelivery').style.display = 'none';
+                if(document.getElementById('tip') != null && document.getElementById('applyTipContainer').style.display == 'block')
+                {
+                    $('#tip').val('');
+                    addtip();
+                }
+                if(document.getElementById('updateTip') != null && document.getElementById('appliedTipContainer').style.display == 'block')
+                {
+                    $('#updateTip').val('');
+                    updatetip();
+                }
+                document.getElementById('ADDTipContainer').style.display = 'none';
+                document.getElementById('fees').style.display = 'none';
+                if(orderType == 'Pickup')
+                {
+                    document.getElementById('OrderPickup').style.display = 'block';
+                }
+                if(orderType == 'Delivery')
+                {
+                    document.getElementById('OrderDelivery').style.display = 'block';
+                    document.getElementById('ADDTipContainer').style.display = 'block';
+                    document.getElementById('fees').style.display = 'table-row';
+                }
+            }
+
+            function calc(variation_id, sign)
+            {
+                var qty = $("#qtychk" + variation_id).val();
+                var subtotal = $("#total").attr('subTotal');
+                var delivery = $("#total").attr('delivery');
+                var tax = 0;
+                var tip = $("#total").attr('tip');
+                var promo = $("#total").attr('promo');
+                var promoRate = $("#total").attr('promorate');
+                var taxRate = $("#total").attr('taxrate');
+                var totalpay = 0;
+                //-------
+                var price = $("#total_price" + variation_id).attr('base_price')
+                var cart_index = $("#qtychk" + variation_id).attr('cart_index')
+                var total_amount = price * qty;
+                $("#total_price" + variation_id).html('£' + Number(total_amount).toFixed(2))
+                if (sign === '+')
+                {
+                    subtotal = (parseFloat(subtotal) + parseFloat(price)).toFixed(2);
+                    promo = 0;
+                    if(parseFloat(promoRate) > 0)
+                    {
+                       promo = parseFloat((subtotal * promoRate) / 100).toFixed(2); 
+                    }
+                    if(parseFloat(taxRate) > 0)
+                    {
+                        tax = parseFloat(parseFloat(parseFloat(subtotal - promo) * taxRate) / 100).toFixed(2);
+                    }
+                    totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                    //----------
+                    $(".total").html('£' + subtotal);
+                    $("#sub_total").attr('total', subtotal);
+                    $(".taxes").html('£' + parseFloat(tax).toFixed(2));
+                    $("#taxes").attr('taxes', parseFloat(tax).toFixed(2));
+                    //----------
+                    $(".totalamt").html('£' + totalpay);
+                    $("#total").attr('total', totalpay);
+                    $("#total").attr('subtotal', subtotal);
+                    $("#total").attr('tax', tax);
+                    $("#total").attr('promo', promo);
+                    $('#sidepromo').html('£' + parseFloat(promo).toFixed(2) + '');
+                    if(parseFloat(promoRate) > 0 && document.getElementById('promoval') != null)
+                    {
+                        $('#promoval').remove();
+                        $("#promobtn").after('<input type="hidden" id="promoval" value="' + promo + '" > ');
+                    }
+                    else
+                    {
+                        $("#promobtn").after('<input type="hidden" id="promoval" value="' + 0 + '" > ');
+                    }
+                } 
+                else
+                {
+                    subtotal = (parseFloat(subtotal) - parseFloat(price)).toFixed(2);
+                    promo = 0;
+                    if(parseFloat(promoRate) > 0)
+                    {
+                       promo = parseFloat((subtotal * promoRate) / 100).toFixed(2); 
+                    }
+                    if(parseFloat(taxRate) > 0)
+                    {
+                        tax = parseFloat(parseFloat(parseFloat(subtotal - promo) * taxRate) / 100).toFixed(2);
+                    }
+                    totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                    //----------
+                    $(".total").html('£' + subtotal);
+                    $("#sub_total").attr('total', subtotal);
+                    $(".taxes").html('£' + parseFloat(tax).toFixed(2));
+                    $("#taxes").attr('taxes', parseFloat(tax).toFixed(2));
+                    //----------
+                    $(".totalamt").html('£' + totalpay);
+                    $("#total").attr('total', totalpay);
+                    $("#total").attr('subtotal', subtotal);
+                    $("#total").attr('tax', tax);
+                    $("#total").attr('promo', promo);
+                    $('#sidepromo').html('£' + parseFloat(promo).toFixed(2) + '');
+                    if(parseFloat(promoRate) > 0 && document.getElementById('promoval') != null)
+                    {
+                        $('#promoval').remove();
+                        $("#promobtn").after('<input type="hidden" id="promoval" value="' + promo + '" > ');
+                    }
+                    else
+                    {
+                        $("#promobtn").after('<input type="hidden" id="promoval" value="' + 0 + '" > ');
+                    }
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/boozly/dynamic_cart',
+                    data: {
+                        'qty_update': {
+                            cart_index: cart_index,
+                            qty: qty,
+                        }
+                    },
+                    success: function (d) {
+                        $('#cartdynamic').html(d);
+                        $.ajax({
+                            type: "POST",
+                            url: '/boozly/mobile_dynamic_cart',
+                            data: {
+                                refresh_cart: 'refresh'
+                            },
+                            success: function(d) {
+                                $('#cartdynamicMobile').html(d);
+                            }
+                        });
+                    }
+                });
+            }
+
+            function placeorder(token) {
+                var promo = $('#promo').val();
+                var subtotal = $("#total").attr('subTotal');
+                var delivery = $("#total").attr('delivery');
+                var tax = $("#total").attr('tax');;
+                var tip = $("#total").attr('tip');
+                var promoAmt = $("#total").attr('promo');
+                var TotalAmt = $("#total").attr('total');
+                document.getElementById('card-errors').classList.add("CardError");
+                document.getElementById('card-errors').innerHTML = 'Please wait..';
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        formdata: {
+                            addressId: $('#addressId').val(),
+                            d_note: $('#notes').val(),
+                            c_note: $('#cnotes').val(),
+                            order_type: $('#OrderType').val(),
+                            promocode: promo,
+                            promoval: promoAmt,
+                            promo_id: $('#promo_id').val(),
+                            taxes: tax,
+                            tip: tip,
+                            stripeToken: token.id,
+                            payAmt: TotalAmt,
+                            subTotal: subtotal,
+                            delivery: delivery,
+                        }
+                    },
+                    url: '/boozly/placeorder',
+                    success: function (resp) {
+                        if(resp.error == undefined && resp.order_id != undefined)
+                        {
+                            location.href = "/boozly/delivery/"+resp.order_id;
+                        }
+                        if(resp.error != undefined && resp.order_id == undefined)
+                        {
+                            document.getElementById('card-errors').classList.add("CardError");
+                            document.getElementById('card-errors').innerHTML = resp.error.raw.message;
+                        }
+                    }
+                });
+            }
+                            
+            function validatepromo()
+            {
+                var promo = $('#promo').val();
+                $.ajax({
+                    type: "POST",
+                    url: '/boozly/validatepromo',
+                    data: {
+                        promo: promo
+                    },
+                    success: function(d)
+                    {
+                        $('#labelpromo').remove();
+                        var subtotal = $("#total").attr('subTotal');
+                        var delivery = $("#total").attr('delivery');
+                        var tax = $("#total").attr('tax');;
+                        var tip = $("#total").attr('tip');
+                        var promo = $("#total").attr('promo');
+                        var taxRate = $("#total").attr('taxrate');
+                        var totalpay = 0;
+                        //-------
+                        if (d.valid)
+                        {
+                            setCookie('addPromoCode',$('#promo').val(), 1);
+                            promo = parseFloat((subtotal * parseFloat(d.value)) / 100).toFixed(2);
+                            if(parseFloat(taxRate) > 0)
+                            {
+                                tax = parseFloat(parseFloat(parseFloat(subtotal - promo) * taxRate) / 100).toFixed(2);
+                            }
+                            totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                            //----------
+                            $(".totalamt").html('£' + totalpay);
+                            $("#total").attr('total', totalpay);
+                            $(".taxes").html('£' + parseFloat(tax).toFixed(2));
+                            $("#taxes").attr('taxes', parseFloat(tax).toFixed(2));
+                            $("#total").attr('tax', tax);
+                            $("#total").attr('promo', promo);
+                            $("#total").attr('promorate', parseFloat(d.value).toFixed(2));
+                            $('#sidepromo').html('£' + parseFloat(promo).toFixed(2) + '');
+                            
+                            document.getElementById('applyPromoContainer').style.display = 'none';
+                            document.getElementById('appliedPromo').value = document.getElementById('promo').value;
+                            document.getElementById('appliedPromoContainer').style.display = 'block';
+                            $("#promobtn").after('<input type="hidden" id="promoval" value="' + promo + '" > ');
+                            $("#appliedPromoButton").after('<label class="error" id="appliedsuccesspromo" style=" margin-top:10px; padding:10px;" > </label>');
+                            $('#appliedsuccesspromo').html('Promo Applied');
+                            
+                        }
+                        else
+                        {
+                            $('#promovalue').remove();
+                            $('#promo').val('');
+                            promo = 0;
+                            var taxRate = $("#total").attr('taxrate');
+                            if(parseFloat(taxRate) > 0)
+                            {
+                                tax = parseFloat(parseFloat(parseFloat(subtotal - promo) * taxRate) / 100).toFixed(2);
+                            }
+                            totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                            //----------
+                            $(".totalamt").html('£' + totalpay);
+                            $("#total").attr('total', totalpay);
+                            $(".taxes").html('£' + parseFloat(tax).toFixed(2));
+                            $("#taxes").attr('taxes', parseFloat(tax).toFixed(2));
+                            $("#total").attr('tax', tax);
+                            $("#total").attr('promo', promo);
+                            $("#total").attr('promorate', parseFloat(promo).toFixed(2));
+                            setCookie('addPromoCode','', 1);
+                            $('#sidepromo').html('£0.00');
+                            $("#promobtn").after('<label class="error" id="labelpromo" style=" margin-top:10px; padding:10px;" > </label>');
+                            $('#labelpromo').html('Invalid Promo');
+                            document.getElementById('appliedPromoContainer').style.display = 'none';
+                            document.getElementById('applyPromoContainer').style.display = 'block';
+                            
+                        }
+                    }
+                });
+            }
+            
+    
+            function addtip()
+            {
+                var tip = parseFloat($('#tip').val());
+                if(isNaN(tip) && tip.toString().indexOf('.') == -1)
+                {
+                    tip = '';
+                    $('#tip').val(tip);
+                }
+                
+                if ($('#tip').val() != '')
+                {
+                    if(document.getElementById('tipadded') != null)
+                    {
+                        $('#tipadded').remove();
+                    }
+                    if(document.getElementById('tipvalue') != null)
+                    {
+                        $('#tipvalue').remove();
+                    }
+                    if(document.getElementById('appliedsuccesstip') != null)
+                    {
+                        $('#appliedsuccesstip').remove();
+                    }
+                    //-------
+                    var subtotal = $("#total").attr('subTotal');
+                    var delivery = $("#total").attr('delivery');
+                    var tax = $("#total").attr('tax');
+                    var promo = $("#total").attr('promo');
+                    var totalpay = 0;
+                    //-------
+                    totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                    //----------
+                    $(".totalamt").html('£' + totalpay);
+                    $("#total").attr('total', totalpay);
+                    $("#total").attr('tip', parseFloat(tip).toFixed(2));
+                    $('#tipdisplay').html('£' + parseFloat(tip).toFixed(2));
+                    setCookie('addTip', parseFloat(tip).toFixed(2), 1);
+                    //------------
+                    document.getElementById('applyTipContainer').style.display = 'none';
+                    document.getElementById('updateTip').value = tip;
+                    document.getElementById('appliedTipContainer').style.display = 'block';
+                    $("#appliedTipButton").after('<label class="error" id="appliedsuccesstip" style=" margin-top:10px; padding:10px;" > </label>');
+                    $('#appliedsuccesstip').html('Tip Added Successfully');
+                    $("#fees").after('<input type="hidden" value="' + parseFloat(tip).toFixed(2) + '" id="tipadded"></input>');
+                    $("#fees").after(' <tr id="tipvalue" ><th style="font-weight:400;">Tip Amount +</th><td style="font-weight:400;"></td><td id="tipdisplay" style="font-weight:400;text-align:right;">£' + parseFloat(tip).toFixed(2) + '</td></tr>');
+                }
+                else
+                {
+                    if(document.getElementById('tipadded') != null)
+                    {
+                        $('#tipadded').remove();
+                    }
+                    if(document.getElementById('tipvalue') != null)
+                    {
+                        $('#tipvalue').remove();
+                    }
+                    if(document.getElementById('appliedsuccesstip') != null)
+                    {
+                        $('#appliedsuccesstip').remove();
+                    }
+                    //-------
+                    var subtotal = $("#total").attr('subTotal');
+                    var delivery = $("#total").attr('delivery');
+                    var tax = $("#total").attr('tax');
+                    var promo = $("#total").attr('promo');
+                    var totalpay = 0;
+                    tip = 0;
+                    //-------
+                    totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                    //----------
+                    $(".totalamt").html('£' + totalpay);
+                    $("#total").attr('total', totalpay);
+                    $("#total").attr('tip', parseFloat(tip).toFixed(2));
+                    $('#tipdisplay').html('£' + parseFloat(tip).toFixed(2));
+                    setCookie('addTip', parseFloat(tip).toFixed(2), 1);
+                    //------------
+                    document.getElementById('appliedTipContainer').style.display = 'none';
+                    document.getElementById('applyTipContainer').style.display = 'block';
+                    $("#fees").after('<input type="hidden" value="0.00" id="tipadded"></input>');
+                    document.getElementById('tip').value = '';
+                }
+            }
+            
+            function updatetip()
+            {
+                var tip = parseFloat($('#updateTip').val());
+                if(isNaN(tip) && tip.toString().indexOf('.') == -1)
+                {
+                    tip = '';
+                    $('#updateTip').val(tip);
+                }
+                if ($('#updateTip').val() != '')
+                {
+                    if(document.getElementById('tipadded') != null)
+                    {
+                        $('#tipadded').remove();
+                    }
+                    if(document.getElementById('tipvalue') != null)
+                    {
+                        $('#tipvalue').remove();
+                    }
+                    if(document.getElementById('appliedsuccesstip') != null)
+                    {
+                        $('#appliedsuccesstip').remove();
+                    }
+                    //-------
+                    var subtotal = $("#total").attr('subTotal');
+                    var delivery = $("#total").attr('delivery');
+                    var tax = $("#total").attr('tax');
+                    var promo = $("#total").attr('promo');
+                    var totalpay = 0;
+                    //-------
+                    totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                    //----------
+                    $(".totalamt").html('£' + totalpay);
+                    $("#total").attr('total', totalpay);
+                    $("#total").attr('tip', parseFloat(tip).toFixed(2));
+                    $('#tipdisplay').html('£' + parseFloat(tip).toFixed(2));
+                    setCookie('addTip', parseFloat(tip).toFixed(2), 1);
+                    //------------
+                    document.getElementById('applyTipContainer').style.display = 'none';
+                    document.getElementById('updateTip').value = tip;
+                    document.getElementById('tip').value = tip;
+                    document.getElementById('appliedTipContainer').style.display = 'block';
+                    $("#appliedTipButton").after('<label class="error" id="appliedsuccesstip" style=" margin-top:10px; padding:10px;" > </label>');
+                    $('#appliedsuccesstip').html('Tip Updated Successfully');
+                    $("#fees").after('<input type="hidden" value="' + parseFloat(tip).toFixed(2) + '" id="tipadded"></input>');
+                    $("#fees").after(' <tr id="tipvalue" ><th style="font-weight:400;">Tip Amount +</th><td style="font-weight:400;"></td><td id="tipdisplay" style="font-weight:400;text-align:right;">£' + parseFloat(tip).toFixed(2) + '</td></tr>');
+                }
+                else
+                {
+                    if(document.getElementById('tipadded') != null)
+                    {
+                        $('#tipadded').remove();
+                    }
+                    if(document.getElementById('tipvalue') != null)
+                    {
+                        $('#tipvalue').remove();
+                    }
+                    if(document.getElementById('appliedsuccesstip') != null)
+                    {
+                        $('#appliedsuccesstip').remove();
+                    }
+                    //-------
+                    var subtotal = $("#total").attr('subTotal');
+                    var delivery = $("#total").attr('delivery');
+                    var tax = $("#total").attr('tax');
+                    var promo = $("#total").attr('promo');
+                    var totalpay = 0;
+                    tip = 0;
+                    //-------
+                    totalpay = ((parseFloat(subtotal) + parseFloat(delivery) + parseFloat(tip) + parseFloat(tax)) - parseFloat(promo)).toFixed(2);
+                    //----------
+                    $(".totalamt").html('£' + totalpay);
+                    $("#total").attr('total', totalpay);
+                    $("#total").attr('tip', parseFloat(tip).toFixed(2));
+                    $('#tipdisplay').html('£' + parseFloat(tip).toFixed(2));
+                    setCookie('addTip', parseFloat(tip).toFixed(2), 1);
+                    //------------
+                    document.getElementById('appliedTipContainer').style.display = 'none';
+                    document.getElementById('applyTipContainer').style.display = 'block';
+                    $("#fees").after('<input type="hidden" value="0.00" id="tipadded"></input>');
+                    document.getElementById('tip').value = '';
+                }
+            }
+                            
+            function chngaddress()
+            {
+                var address = $('#addresstext' + index).val();
+                $('#address').html(address);
+                $('#addressId').val(ad_id);
+            }
+            
+              
+              $(document).ready(function()
+              {
+                 showOrderTypeBlock();
+                 $('#OrderType').change(function()
+                 {
+                     showOrderTypeBlock();
+                 });
+                 
+                 if(checkCookie('addPromoCode'))
+                 {
+                    $('#promo').val(getCookie('addPromoCode'));
+                    validatepromo();
+                 }
+                 if(checkCookie('addTip'))
+                 {
+                    $('#tip').val(getCookie('addTip'));
+                    addtip();
+                 }
+              });
+            
+            $('#updateadd').on('click', function() {
+                if ($('#street_number').val())
+                {
+                    $('#addressform').submit();
+                }
+            });
+            
+            $('.checkout-cart-remove').click(function()
+            {
+                var id = $(this).attr('cart_index');
+                $(this).closest('tr').children('td').addClass('deleteHighlight').animate({padding: 0}).wrapInner('').children().slideUp(function() { $(this).closest('tr').remove();});
+                $.ajax({
+                    type: "POST",
+                    url: '/boozly/dynamic_cart',
+                    data: {
+                        remove_cart: id
+                    },
+                    success: function(d) {
+                        $('#cartdynamic').html(d);
+                        $.ajax({
+                            type: "POST",
+                            url: '/boozly/mobile_dynamic_cart',
+                            data: {
+                                refresh_cart: 'refresh'
+                            },
+                            success: function(d) {
+                                $('#cartdynamicMobile').html(d);
+                                
+                                var currentURL = window.location.href.split('/');
+                                if(currentURL.includes("checkout") == true)
+                                {
+                                    location.reload(true);
+                                }
+                            }
+                        });
+                        
+                    }
+                });
+
+            });
+            
+            $(window).on('load', function ()
+            {
+                if (<%-addresses.length%> < 1)
+                {
+                    $('#exampleModalCenter3').modal('show');
+                    $("#openNewAddress").show("slow");
+                    $('#addressOption3').prop('checked', true);
+                }
+                
+                const stripe = Stripe('pk_test_51HCSXbH3hsW5YLjpPo6FxEv8KrQmxAfVJbvQ9UmvzmtXIvfIMrounfmh2izLhfSQ28yiTtZIKwQFx6mXPLzMXqni00b16vWpbw'); // Your Publishable Key
+                const elements = stripe.elements();
+
+                // Create our card inputs
+                var style = {
+                    base: {
+                        "color": "#696969",
+                        "padding": ".375rem .75rem",
+                        "font-size": "1rem",
+                        "line-height": "1.5",
+                        "background-color": "#fff",
+                        "background-clip": "padding-box",
+                        "border": "1px solid #ced4da",
+                        "border-radius": ".25rem",
+                        "transition": "border-color .15s ease-in-out,box-shadow .15s ease-in-out",
+                    }
+                };
+
+                const card = elements.create('card', { style });
+                card.mount('#card-element');
+
+                const form = document.querySelector('#checkoutOrderForm');
+                const errorEl = document.querySelector('#card-errors');
+
+                // Give our token to our form
+                const stripeTokenHandler = token => {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('id', 'stripeToken');
+                    hiddenInput.setAttribute('name', 'stripeToken');
+                    hiddenInput.setAttribute('value', token.id);
+                    form.appendChild(hiddenInput);
+                    $("#card-errors").removeClass("CardError");
+                    document.getElementById('card-errors').innerHTML = '';
+                    placeorder(token);
+                }
+
+                // Create token from card data
+                form.addEventListener('submit', e => {
+                  e.preventDefault();
+
+                    stripe.createToken(card).then(res => 
+                    {
+                        if (res.error)
+                        {
+                            errorEl.textContent = res.error.message;
+                            document.getElementById('card-errors').classList.add("CardError");
+                        }
+                        else 
+                        {
+                            stripeTokenHandler(res.token);
+                        }
+                    });
+                });
+            });
+            
+            
+        </script>
+        
+</body>
+
+</html>
+
+<% include ../partials/location %>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+    <!-- animate scss -->
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <!-- bootstarp css -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!-- icofont -->
+    <link rel="stylesheet" href="/assets/css/icofont.min.css">
+    <!-- lightcase css -->
+    <link rel="stylesheet" href="/assets/css/lightcase.css">
+    <!-- swiper css -->
+    <link rel="stylesheet" href="/assets/css/swiper.min.css">
+    <!-- cusyom scss -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <link rel="stylesheet" href="/assets/css/mobile.responsive.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Boozly - Alcoholic beverages delivered to your door within 60 minutes</title>
+</head>
+
+<body>
+    <!-- preloader -->
+    <div class="preloader">
+        <div class="load loade">
+            <hr/>
+            <hr/>
+            <hr/>
+            <hr/>
+        </div>
+    </div>
+    <!-- preloader -->
+
+
+    <!-- /Homepage popup -->
+
+
+    <% include ../partials/header %>
+        <!-- header section ending -->
+<!-- Login Section Start Here -->
+        <section class="contact-information login email-verification padding-tb">
+            <div class="container">
+                <div class="section-wrapper">
+                    <div class="row">
+
+                        <div class="col-lg-6 offset-lg-3">
+
+                            <div class="msg-box text-center">
+                                <h4>Hi <%=fName%></h4>
+                                <p class="click">Congratulations and thank you for joining us.<br>Your account is now ready to use..</p>
+                                
+
+                                <p class="resend">Click here to <a href="/boozly/login">Login</a></p>
+
+
+                            </div>
+
+                        </div>
+                        <!-- end-col -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Us Section Ending Here -->
+
+		<!-- Footer Section Start Here -->
+
+        <% if (ISMOBILE === "1") { %>
+            <!-- MOBILE TAB MENU Here -->
+                <% include ../partials/tabBar %>
+            <% } else { %>
+                <% include ../partials/footer %>
+            <% } %>
+        <!-- Footer Section Ending Here -->
+        
+        <!-- scrollToTop start here -->
+		<a href="javascript:void(0);" class="scrollToTop"><i class="icofont-swoosh-up"></i></a>
+		<!-- scrollToTop ending here -->
+
+
+		
+		<script src="/assets/js/jquery.js"></script>
+		<script src="/assets/js/waypoints.min.js"></script>
+		<script src="/assets/js/bootstrap.min.js"></script>
+		<script src="/assets/js/isotope.pkgd.min.js"></script>
+		<script src="/assets/js/wow.min.js"></script>
+		<script src="/assets/js/swiper.min.js"></script>
+		<script src="/assets/js/lightcase.js"></script>
+		<script src="/assets/js/jquery.counterup.min.js"></script>
+        <script src="/assets/js/functions.js"></script>
+              
+        <script src="/assets/js/jquery_validate.js"></script>
+    
+        <script src="/assets/js/validation.js"></script>
+	</body>
+</html>

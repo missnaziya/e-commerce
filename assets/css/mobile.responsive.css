@@ -1,0 +1,264 @@
+
+
+/* ---------------------------Mobile----------------- */
+body{
+    padding-top: 45px;
+    padding-bottom: 100px;
+}
+h3 {
+    font-size: 20px;
+}
+/* ---------------------------------------------- */
+@media (max-width: 776px) {
+    .container {
+   margin-bottom: 25px;
+    }
+    .scrollToTop{
+      margin-bottom: 70px;
+    }
+    .popup-content .outline-select select{
+      font-size: 14px;
+      padding: 11px 10px;
+      z-index: 0;
+  
+      
+    }
+    .user-card-details .user-card .delete-btn {
+      position: absolute;
+      right: 0;
+      top: 55px;
+      text-align: center;
+  }
+
+  .bg-area.banner.search-banner {
+    height: 250px !important;
+}
+
+
+
+}
+@media (max-width: 650px) {
+    .bg-area.banner.search-banner {
+        height: 235px !important;
+    }
+
+}
+  
+  /* -------------------------tab Bar-------------------- */
+  .menu-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff; /* Change this to match your page background */
+    border-top: 1px solid #ddd;
+    z-index: 1;
+  }
+  
+  .menu {
+    display: flex;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .menu-item {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-item.active,
+  .menu-item:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .menu-item svg {
+    display: block;
+    margin: 0 auto 5px;
+    fill: #333;
+  }
+  
+
+  /* ---------------customise header for mobile app----------------  */
+  
+  /* ================hide menu button===============   */
+.header-bar{
+    display: none;
+  }
+
+  .logo{
+   max-width: 50%; 
+  }
+  .cart-option{
+    padding: 0;
+  }
+  .mobile-menu .mobile-header{
+    padding: 5px 15px;
+  }
+/* -------------------------------------------------------- */
+@media (max-width: 500px) {
+    
+    .booze-info{
+        display: none;
+    }
+    
+    .search-banner .white-box {
+        padding: 10px 25px !important;
+    }
+
+.s005{
+margin-bottom: 0;
+padding: 20px;
+}
+.search-banner .white-box .white-box-content span.address {
+    color: #362725;
+    font-weight: 700;
+    font-size: 16px;
+}
+.s005 form .inner-form {
+    width: 100%;
+    margin-bottom: 0;
+}
+.bg-area.banner.search-banner {
+    height: 170px !important;
+}
+.padding-tb{
+    padding: 0;
+}
+
+
+.contact-information .past-orders-info .widget{
+    display: none !important;
+}
+
+
+
+
+.past-orders-info .row {
+    display: block;
+ 
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.section-wrapper .past-orders-info {
+    box-shadow: none;
+    padding: 0px !important;
+}
+
+.cart-plus-minus {
+    border: 1px solid #e6e6e6;
+    width: 120px;
+    margin: 0 !important;
+float: right !important;
+
+}
+
+} 
+
+@media (max-width: 450px) {
+
+    .bg-area.banner.search-banner {
+        height: 160px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .bg-area.banner.search-banner {
+        height: 160px !important;
+    }
+
+    .widget-category .widget{
+        display: none !important;
+    }
+    .search-banner .white-box .white-box-content span.address {
+        color: #362725;
+        font-weight: 700;
+        font-size: 12px;
+    }
+        .search-banner .white-box {
+            padding: 10px 15px !important;
+        }
+    
+}
+.cart-plus-minus {
+    border: 1px solid #e6e6e6;
+    width: 120px;
+    margin: 0 !important;
+    float: right !important;
+}
+
+.back-to{
+    display: none;
+}
+
+#myaccounts .form-group .col-sm-6{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.shop-cart .section-wrapper .cart-top table {
+    font-weight: 600;
+    width: 95%;
+    
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    margin: 10px 0;
+}
+
+.back-btn svg {
+    margin-right: 8px;
+    
+}
+.back-btn:hover {
+    color: red;
+}
+
+.back-btn:hover svg path {
+    stroke: red;
+}
+
+.widget{
+    padding: 15px;
+}
+.modal-footer{
+    padding: 0 2rem 1rem 1rem;
+}
+#exampleModalCenter3 .panel.panel-primary {
+    margin-bottom: 0;
+}
+
+#exampleModalCenter3 .panel-title{
+    margin-bottom: 0;
+}
+.shop-cart{
+    padding-top: 50px ;
+}
+
+.col-lg-4  .widget-checkout {
+    padding: 0 !important; /* Adjust the padding value as needed */
+}
+.reapos .statusBtn{
+  
+    top: -35px !important;
+}
+
+.past-orders .order-address li {
+    padding: 2px 90px 12px 0;
+    
+}
+.contact-information .past-orders-info .widget{
+    display: none !important;
+}
+.section-wrapper.past-orders-info {
+    padding: 0px 0 !important;
+}

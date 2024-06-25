@@ -1,0 +1,286 @@
+<div class="cartpopupMobile">
+            <%
+            if(cart.length <= 0)
+            {
+                %>
+                <img src="/assets/images/header/cart.png" alt="shop-cart" id="piyucartshowsmobile">
+                <div class="count-item" id="piyucartcontentItemCountMobile"><%-cart.length%></div>
+                <%
+            }
+            else
+            {
+               %>
+                <a href="/boozly/checkout" style="color: #FFF;padding: 0;margin: 0;display: block;"><img src="/assets/images/header/cart.png" alt="shop-cart" id="piyucartshowsmobile"></a>
+                <a href="/boozly/checkout" style="color: #FFF;padding: 0;margin: 0;display: block;"><div class="count-item" id="piyucartcontentItemCountMobile"><%-cart.length%></div></a>
+                <% 
+            }
+            %>
+            
+            <%if(cart.length <= 0){%>
+            <div class="cart-content" id="piyucartcontentMobile" style="visibility: hidden; opacity: 0;">
+            <%}%>
+            <%if(cart.length > 0){%>
+            <div class="cart-content" id="piyucartcontentMobile" style="visibility: hidden; opacity: 0;">
+            <%}%>
+            
+                <div class="cart-title" id="piyucartcontenttitleMobile">
+                    <div class="add-item">
+                        <%-cart.length%> Items Added</div>
+                    <div class="list-close"><a id="piyucloseSMobile" href="javascript:void(0);">Close</a></div>
+                </div>
+                <div class="cart-scr scrollbar">
+                    <div class="cart-con-item">
+                        <% for (let i = 0; i < cart.length; i++) {%>
+                            <div class="cart-item">
+
+                                <div class="cart-inner">
+                                    <div class="cart-top">
+                                        <div class="thumb">
+                                            <a href="javascript:void(0);"><img src="<%-cart[i].img_path%>" alt=""></a>
+                                        </div>
+                                        <div class="content">
+                                            <a href="javascript:void(0);">
+                                                <%=cart[i].title%><br /><%=cart[i].size%><%=cart[i].unit%>&nbsp;<%=cart[i].package%>
+                                            </a>
+                                        </div>
+                                        <div class="remove-btn">
+                                            <a href="javascript:void(0);" class="cart-remove-mobile" cart_index="<%-i%>"><i class="icofont-close"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cart-bottom">
+                                        <div class="cart-plus-minus">
+                                            <div class="dec qtybutton qtycartmobile">-</div>
+                                            <div class="dec qtybutton qtycartmobile">-</div>
+                                            <div class="dec qtybutton qtycartmobile">-</div>
+
+                                            <input class="cart-plus-minus-box" type="text" name="qtycart" cart_index="<%-i%>" variation_id="<%-cart[i].variation_id%>" id="mqtycart<%-cart[i].variation_id%>" value=" <%=cart[i].qty%>">
+                                            <div class="inc qtybutton qtycartmobile">+</div>
+                                            <div class="inc qtybutton qtycartmobile">+</div>
+                                            <div class="inc qtybutton qtycartmobile">+</div>
+                                        </div>
+                                        <div class="total-price" base_price="<%-cart[i].value%>" id="mpricecart<%-cart[i].variation_id%>">£<%=Number(cart[i].total_price).toFixed(2)%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <%}%>
+
+                    </div>
+                </div>
+                <div class="cart-scr-bottom">
+                    <a href="/boozly/checkout" class="food-btn"><span>Checkout</span></a>
+                </div>
+            </div>
+</div>
+<script type="text/javascript">
+    var md = [];
+    <%
+    if(cart.length>0)
+    {
+        for (let dd = 0; dd < cart.length; dd++)
+        {
+            %>
+            md.push({
+                'product_id': '<%-cart[dd].product_id%>',
+                'title': '<%-cart[dd].title%>',
+                'qty': '<%-cart[dd].qty%>',
+                'value': '<%-cart[dd].value%>',
+                'size': '<%-cart[dd].size%>',
+                'unit':'<%-cart[dd].unit%>',
+                'package':'<%-cart[dd].package%>',
+                'variation_id': '<%-cart[dd].variation_id%>',
+                'img_path': '<%-cart[dd].img_path%>',
+                'total_price': '<%-cart[dd].total_price%>'
+            });
+            <%
+        }
+    }
+    %>
+    
+    $(".qtycartmobile").on("click", function()
+    {
+        //--------------
+        var $button = $(this);
+        var oldValue = $button.parent().find("input").val();
+        if ($button.text() === "+")
+        {
+            var newVal = parseFloat(oldValue) + 1;
+        }
+        else
+        {
+            if (oldValue > 1)
+            {
+                var newVal = parseFloat(oldValue) - 1;
+            }
+            else
+            {
+                newVal = 1;
+            }
+        }
+        $button.parent().find("input").val(newVal);
+        calculateMobile($button.parent().find("input").attr('variation_id'))
+    });
+
+    function calculateMobile(variation_id)
+    {
+        var qty = $("#mqtycart" + variation_id).val();
+        var price = $("#mpricecart" + variation_id).attr('base_price');
+        var cart_index = $("#mqtycart" + variation_id).attr('cart_index');
+        //$("#mpricecart" + variation_id).html('£' + price * qty);
+        $.ajax({
+            type: "POST",
+            url: '/boozly/dynamic_cart',
+            data: {
+                'qty_update': {
+                    cart_index: cart_index,
+                    qty: qty,
+                }
+            },
+            success: function(d) {
+                $('#cartdynamic').html(d);
+                $.ajax({
+                    type: "POST",
+                    url: '/boozly/mobile_dynamic_cart',
+                    data: {
+                        refresh_cart: 'refresh'
+                    },
+                    success: function(d) {
+                        $('#cartdynamicMobile').html(d);
+                        if($("#piyucartcontentItemCountMobile").html() != '0')
+                        {
+                            $("#piyucartcontentMobile").css("visibility", "visible");
+                            $("#piyucartcontentMobile").css("opacity", "1");
+                        }
+                        else
+                        {
+                            $("#piyucartcontentMobile").css("visibility", "hidden");
+                            $("#piyucartcontentMobile").css("opacity", "0");	
+                        }
+                        var currentURL = window.location.href.split('/');
+                        if(currentURL.includes("checkout") == true)
+                        {
+                            location.reload(true);
+                        }
+                    }
+                });
+            }
+        });
+    }
+    
+    
+    $('.cart-remove-mobile').click(function()
+    {
+        var id = $(this).attr('cart_index');
+        $.ajax({
+            type: "POST",
+            url: '/boozly/dynamic_cart',
+            data: {
+                remove_cart: id
+            },
+            success: function(d) {
+                $('#cartdynamic').html(d);
+                $.ajax({
+                    type: "POST",
+                    url: '/boozly/mobile_dynamic_cart',
+                    data: {
+                        refresh_cart: 'refresh'
+                    },
+                    success: function(d) {
+                        $('#cartdynamicMobile').html(d);
+                        if($("#piyucartcontentItemCountMobile").html() != '0')
+                        {
+                            $("#piyucartcontentMobile").css("visibility", "visible");
+                            $("#piyucartcontentMobile").css("opacity", "1");
+                        }
+                        else
+                        {
+                            $("#piyucartcontentMobile").css("visibility", "hidden");
+                            $("#piyucartcontentMobile").css("opacity", "0");	
+                        }
+                        var currentURL = window.location.href.split('/');
+                        if(currentURL.includes("checkout") == true)
+                        {
+                            location.reload(true);
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+    
+    <%if(false && cart.length > 0){%>
+        
+    	$("#piyucartshowsmobile").on("click", function() { 
+    		if($("#piyucartcontentItemCountMobile").html() != '0')
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "visible");
+                    $("#piyucartcontentMobile").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "hidden");
+                    $("#piyucartcontentMobile").css("opacity", "0");	
+    		}
+    	});
+        
+        $("#piyucartshowsmobile").on("click", function() { 
+    		if($("#piyucartcontentItemCountMobile").html() != '0')
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "visible");
+                    $("#piyucartcontentMobile").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "hidden");
+                    $("#piyucartcontentMobile").css("opacity", "0");	
+    		}
+    	});
+    	
+    	$("#piyucartshows").on("mouseover", function() { 
+    		if($("#piyucartcontentItemCountMobile").html() != '0')
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "visible");
+                    $("#piyucartcontentMobile").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "hidden");
+                    $("#piyucartcontentMobile").css("opacity", "0");	
+    		}
+    	});
+        
+        $("#piyucartshowsmobile").on("mouseover", function() { 
+    		if($("#piyucartcontentItemCountMobile").html() != '0')
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "visible");
+                    $("#piyucartcontentMobile").css("opacity", "1");
+    		}
+    		else
+    		{
+                    $("#piyucartcontentMobile").css("visibility", "hidden");
+                    $("#piyucartcontentMobile").css("opacity", "0");	
+    		}
+    	});
+    	
+    	$("#piyucloseSMobile").on("click", function() {
+            $("#piyucartcontentMobile").css("visibility", "hidden");
+            $("#piyucartcontentMobile").css("opacity", "0");
+    	});
+        
+        $(document.body).not('#cartOptionLi').bind('click touch', function(e)
+        {
+            if ( e.target.className.indexOf("cartpopupMobile") < 0 )
+            {
+                document.getElementById('piyucartcontentMobile').style.visibility = "hidden";
+                document.getElementById('piyucartcontentMobile').style.opacity = "0";
+            }
+        });
+        $("#cartOptionLiMobile").bind('click touch', function(e) {
+            e.stopPropagation();
+        });
+    	
+    <%}%>
+    
+</script>

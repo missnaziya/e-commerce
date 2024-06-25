@@ -1,0 +1,212 @@
+	<% include ../partials/header %>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- /Header -->
+<main class="page-main">
+	<!-- Breadcrumbs Block -->
+	<div class="block breadcrumbs">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/boozly">Home</a></li>
+				<li>Contact Us</li>
+			</ul>
+		</div>
+	</div>
+	<!-- //Breadcrumbs Block -->
+	<h1 class="text-center h-decor">Contact Us</h1>
+	<div class="block fullwidth no-pad">
+		<div class="container">
+			<div id="googleMap" class="google-map"></div>
+		</div>
+	</div>
+	<div class="block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h2>General Office</h2>
+					<div class="contact-info-sm">
+						<h5>Address</h5>
+						<i class="icon icon-map-marker"></i>3261 Anmoore Road
+						<br>Brooklyn, NY 11230
+					</div>
+					<div class="contact-info-sm">
+						<h5>Phone 24/7</h5>
+						<i class="icon icon-technology"></i><%-locals.siteContact%>					</div>
+					<div class="contact-info-sm">
+						<h5>Operating Hours</h5>
+						<i class="icon icon-clock"></i>Mon-Fri: 9:00 am – 5:00 pm
+						<br>Sat-Sun: 11:00 am – 16:00 pm
+					</div>
+				</div>
+				<div class="divider visible-sm visible-xs"></div>
+				<div class="col-md-8">
+					<h2 class="text-center h-lg h-decor">Get in Touch</h2>
+					<form  action="#" novalidate="novalidate">
+						<div class="successform text-center">
+							<p>Your message was sent successfully!</p>
+						</div>
+						<div class="errorform text-center">
+							<p>Something went wrong, try refreshing and submitting the form again.</p>
+						</div>
+						<div class="input-wrapper">
+							<input type="text" class="input-custom input-full" name="name" placeholder="Your name*">
+						</div>
+						<div class="input-wrapper">
+							<input type="text" class="input-custom input-full" name="email" placeholder="Email*">
+						</div>
+						<div class="input-wrapper">
+							<textarea class="textarea-custom input-full" name="message" placeholder="Message"></textarea>
+						</div>
+						<div class="g-recaptcha text-center" data-sitekey="YOUR SITE KEY" style="display: inline-block;"></div>
+						<input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
+						<br>
+						<button type="submit" class="btn">Send Message</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h6>Contact us to book your freequote.</h6>
+					<ul class="marker-list">
+						<li>No contracts and no obligation</li>
+						<li>Competitive Rates</li>
+						<li>Top quality work</li>
+						<li>A service schedule designed to meet your needs</li>
+						<li>Proud members of the Better Business Bureau</li>
+						<li>We provide all our own supplies.</li>
+						<li>No contracts and no obligation</li>
+						<li>Competitive Rates</li>
+						<li>Top quality work</li>
+					</ul>
+				</div>
+				<div class="clearfix visible-sm visible-xs"></div>
+				<div class="col-sm-6 col-md-4">
+					<div class="address-box">
+						<h3>Affiliate Office #1</h3>
+						<div class="contact-info-sm">
+							<i class="icon icon-map-marker"></i><b>New York</b>
+							<br> Phone: <%-locals.siteContact%>
+							<br> Email: <a href="mailto:<%-locals.siteemail%>">officeone@youremail.com</a>
+							<br> 3261 Anmoore Road
+							<br> Brooklyn, NY 10007
+							<br>
+							<ul class="social-list social-list-sm">
+								<li><a href="#"><i class="icon-google-plus-logo"></i></a></li>
+								<li><a href="#"><i class="icon-facebook-logo"></i></a></li>
+								<li><a href="#"><i class="icon-twitter-logo"></i></a></li>
+								<li><a href="#"><i class="icon-instagram-logo"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<div class="address-box">
+						<h3>Affiliate Office #2</h3>
+						<div class="contact-info-sm">
+							<i class="icon icon-map-marker"></i><b>New York</b>
+							<br> Phone: 917-859-4619
+							<br> Fax: 917-859-4619
+							<br> Email: <a href="mailto:<%-locals.siteemail%>">officetwo@youremail.com</a>
+							<br> 330 Hoffman Avenue
+							<br> Brooklyn, NY 10007
+							<br>
+							<ul class="social-list social-list-sm">
+								<li><a href="#"><i class="icon-google-plus-logo"></i></a></li>
+								<li><a href="#"><i class="icon-facebook-logo"></i></a></li>
+								<li><a href="#"><i class="icon-twitter-logo"></i></a></li>
+								<li><a href="#"><i class="icon-instagram-logo"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<!-- Footer -->
+<footer class="page-footer page-footer--style2">
+	<div class="container">
+		<div class="page-footer-content row">
+			<div class="col-sm-4">
+				<div class="footer-ribbon"><img src="images/footer-ribbon.png" alt=""></div>
+				<div class="page-footer-text">
+					<p>We use natural and eco-friendly cleaning products and have a customer satisfaction guarantee.</p>
+				</div>
+			
+			</div>
+				<div class="col-sm-4">
+				<h4>Cleaning Services</h4>
+				<ul class="marker-list">
+					<li><a href="#">Apartment Cleaning</a></li>
+					<li><a href="#">Commercial Cleaning</a></li>
+					<li><a href="#">Residential Cleaning</a></li>
+					<li><a href="#">Move In / Move Out Cleaning Services</a></li>
+					<li><a href="#">Window Cleaning</a></li>
+					<li><a href="#">Carper Cleaning</a></li>
+					<li><a href="#">After Renovation</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-4">
+				<h4>Contact Information</h4>
+				<div class="page-footer-info">
+					<i class="icon icon-location"></i><%-locals.address%>
+				</div>
+				<div class="page-footer-info">
+					<i class="icon icon-phone"></i><span class="text-nowrap"><%-locals.siteContact%>,</span> <span class="text-nowrap">Fax: 718-724-3312</span>
+				</div>
+				<div class="page-footer-info">
+					<i class="icon icon-letter"></i><a href="mailto:<%-locals.siteemail%>"><%-locals.siteemail%></a>
+				</div>
+				
+				<div class="btn-wrap"><a href="/boozly/finddrink" class="btn animation" data-animation="tada">Get a Free Estimate</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="page-footer-bottomline">
+		<div class="container">
+			<div class="page-footer-bottomline-left">
+				<div class="footer-copyright">© 2019 <%-locals.siteTitle%>. Privacy Policy</div>
+			</div>
+			<div class="page-footer-bottomline-right">
+				<ul class="social-list">
+					<li><a href="#"><i class="icon-facebook-logo1"></i></a></li>
+					<li><a href="#"><i class="icon-twitter-logo1"></i></a></li>
+					<li><a href="#"><i class="icon-instagram-logo1"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="backToTop js-backToTop">
+		<i class="icon icon-right-arrow"></i>
+	</div>
+</footer>
+<!-- /Footer -->
+<!-- External JavaScripts -->
+<script src="/backend/js/vendor/jquery.js"></script>
+<script src="/backend/js/vendor/bootstrap.min.js"></script>
+<script src="/backend/js/vendor/slick.min.js"></script>
+<script src="/backend/js/vendor/isotope.pkgd.min.js"></script>
+<script src="/backend/js/vendor/imagesloaded.pkgd.min.js"></script>
+<script src="/backend/js/vendor/lightbox.min.js"></script>
+<script src="/backend/js/vendor/jquery.scroll-with-ease.min.js"></script>
+<script src="/backend/js/vendor/jquery.form.js"></script>
+<script src="/backend/js/vendor/jquery.validate.min.js"></script>
+<script src="/backend/js/vendor/moment.js"></script>
+<script src="/backend/js/vendor/bootstrap-datetimepicker.min.js"></script>
+<script src="/backend/js/vendor/jquery.waypoints.min.js"></script>
+<script src="/backend/js/vendor/jquery.countTo.js"></script>
+<script src="/backend/js/vendor/jquery.print.js"></script>
+<script src="/backend/js/vendor/jquery.dotdotdot.min.js"></script>
+<script src="/backend/js/vendor/jquery.doubletaptogo.min.js"></script>
+<script src="/backend/js/vendor/nouislider.min.js"></script>
+<script src="/backend/js/vendor/jquery.elevateZoom-3.0.8.min.js"></script>
+<!-- Custom JavaScripts -->
+<script src="/backend/js/custom.js"></script>
+<script src="/backend/js/forms.js"></script>
+</body>
+
+</html>
+ <% include ../partials/activeclass.ejs %>
